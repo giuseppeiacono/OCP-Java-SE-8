@@ -1,3 +1,5 @@
 # Default ignored files
 .idea/
+*.class
+*.kotlin_module
 OCP-Java-SE-8.iml
