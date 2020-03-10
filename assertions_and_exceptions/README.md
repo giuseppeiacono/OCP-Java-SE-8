@@ -2,6 +2,8 @@
 + [Overview](#overview)
 + [Assertions](#assertions)
     - [How to enable and disable assertions](#how-to-enable-and-disable-assertions)
+    - [How to use correctly assertions](#how-to-use-correctly-assertions)
++ [Exam tricks](#exam-tricks)
 
 
 ## Overview
@@ -17,10 +19,6 @@ There are two types of assertions:
 The only difference between them is that the __simple__ assertion consists of a boolean expression followed by a primitive or object that could be converted into a String. 
 It is added to the stack trace. Look at this [example](/src/assertion/Assertion.java).
 
-> **EXAM trick** \
-> Any question about assertions that refers to "expression" without specify if it is a boolean test or the value to print in the stack trace,
-> ALWAYS assume that it is a boolean expression 
-
 ### How to enable and disable assertions
 
 > WARNINNG : Assertions are DISABLED by default at runtime!!!
@@ -35,7 +33,7 @@ Follow some examples of how to use options above in several ways:
 java -ea com.assertion.MyClass
 java -enableassertions com.assertion.MyClass
 
-// DISABLE assertions
+// DISABLE assertions in general
 java -da com.assertion.MyClass
 java -disableassertions com.assertion.MyClass
 
@@ -45,3 +43,25 @@ java -ea -da com.assertion.MyClass
 // Enable assertions in general, except for a package
 java -ea -da com.assertion...
 ```
+
+### How to use correctly assertions
+Follow Oracle's engineers recommendations on how to use assertions:
+ * do use assertions to validate arguments to a private method
+ * don't use Assertions to validate arguments to a public method!
+ * do not abuse with number of assertions!
+ * never, ever handle an assertion failure!
+ * don't use assertions to validate command-line arguments
+ * do use assertions, in both private and public methods, to check for cases that you know are never, ever supposed to happen
+ * never, ever include code that could change the state of the program because they are not executed by default at runtime!
+ 
+## Exam tricks
+> **"expression" meaning** \
+> Any question about assertions that refers to "expression" without specify if it is a boolean test or 
+> the value to print in the stack trace, **ALWAYS** assume that it is a boolean expression 
+
+> **"correct" meaning** \
+> "correct" in the context of assertions refers to how assertions SHOULD be used rather than how they legally COULD be used
+
+> **"appropriate" != "legal"** \
+>"appropriate" always refers to the way in which something is supposed to be used, according to either 
+> the developers of the mechanism or best practices officially embraced by Oracle

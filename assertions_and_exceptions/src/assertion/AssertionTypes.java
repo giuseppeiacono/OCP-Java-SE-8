@@ -1,9 +1,10 @@
 package assertion;
 
-public class Assertion {
+public class AssertionTypes {
 
     public static void main (String[] args) {
-        Assertion assertion = new Assertion();
+        // remember to enable assertions before to run this code
+        AssertionTypes assertion = new AssertionTypes();
         assertion.reallySimpleAssertion(2);
         assertion.simpleAssertion(30);
         assertion.simpleAssertion(-91);
