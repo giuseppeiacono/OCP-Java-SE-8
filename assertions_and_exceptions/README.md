@@ -46,13 +46,17 @@ java -ea -da com.assertion...
 
 ### How to use correctly assertions
 Follow Oracle's engineers recommendations on how to use assertions:
- * do use assertions to validate arguments to a private method
- * don't use Assertions to validate arguments to a public method!
- * do not abuse with number of assertions!
- * never, ever handle an assertion failure!
- * don't use assertions to validate command-line arguments
- * do use assertions, in both private and public methods, to check for cases that you know are never, ever supposed to happen
- * never, ever include code that could change the state of the program because they are not executed by default at runtime!
+ * Do use assertions
+   - to validate arguments to a private method
+   - in both private and public methods, to check for cases that you know are never, ever supposed to happen
+   
+ * Do not abuse with number of assertions!
+ * Don't use assertions 
+   - to validate arguments to a public method!
+   - to validate command-line arguments!
+ * Never, ever 
+   - handle an assertion failure!
+   - include code that could change the state of the program because they are not executed by default at runtime!
  
 ## Exam tricks
 > **"expression" meaning** \
