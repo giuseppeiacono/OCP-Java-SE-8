@@ -18,8 +18,8 @@ The key parts of this pattern are:
 3. ``private`` constructor so no callers can instantiate the object directly
 
 Look at a couple of examples to understand how this pattern could be implemented before and after Java 8:
-* [SingletonOldStyle](/src/java/main/SingletonOldStyle.java) 
-* [SingletonNewStyle](/src/java/main/SingletonNewStyle.java)
+* [SingletonOldStyle](src/java/main/SingletonOldStyle.java) 
+* [SingletonNewStyle](src/java/main/SingletonNewStyle.java)
 
 ### Singleton initialization
 There are two way to initialize the singleton object:
