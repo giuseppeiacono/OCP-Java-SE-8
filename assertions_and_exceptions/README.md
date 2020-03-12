@@ -3,8 +3,9 @@
 + [Assertions](#assertions)
     - [How to enable and disable assertions](#how-to-enable-and-disable-assertions)
     - [How to use correctly assertions](#how-to-use-correctly-assertions)
++ [Multi-catch](#multi-catch)
++ [Rethrowing exceptions](#rethrowing-exceptions)
 + [Exam tricks](#exam-tricks)
-
 
 ## Overview
 This module shows how to use assertions and how to manage exceptions with the new try statements provided by Java 8.
@@ -17,7 +18,7 @@ There are two types of assertions:
  * __simple__
 
 The only difference between them is that the __simple__ assertion consists of a boolean expression followed by a primitive or object that could be converted into a String. 
-It is added to the stack trace. Look at this [example](/src/assertion/Assertion.java).
+It is added to the stack trace. Look at this [example](src/assertion/AssertionTypes.java).
 
 ### How to enable and disable assertions
 
@@ -56,7 +57,51 @@ Follow Oracle's engineers recommendations on how to use assertions:
    - to validate command-line arguments!
  * Never, ever 
    - handle an assertion failure!
-   - include code that could change the state of the program because they are not executed by default at runtime!
+   - include code that could change the state of the program because they are not executed by default at runtime! [Here](src/assertion/AssertionIncorrectUse.java) an example
+   
+## Multi-catch
+Multi-catch command was introduced on Java 7 with the purpose to merge several catch clauses in case they have exactly the same code.
+ ```
+try {
+    ...
+} catch (SQLException | IOException e) {
+    handleError();
+}
+```
+The example above show the new syntax of the catch clause:
+ 1. the types of exception are separated by pipe characters
+ 2. there is only one variable
+ 3. the order of exception types is irrelevant
+ 4. the variable is **final** so you can't assign a new value (it does not compile!)
+ 
+Look at [these examples](src/multi_catch/MultiCatchLegal.java) of legal multi-catch statement.
+
+## Rethrowing exceptions
+Some times we need to use the pattern "handle and declare" in order to process the exception caught and then rethrow it.
+```
+public void couldThrowExceptions() throws IOException, IndexOutOfBoundException { }
+
+public void rethrowExceptions() throws IOException, IndexOutOfBoundException {
+    try {
+        couldThrowExceptions();
+    } catch (IOException | IndexOutOfBoundException e) {
+        log(e);
+        throw e;
+    }
+}
+```
+Remember that multi-catch was created to avoid duplicated code, while in this case log(e) is a kind of duplicate code 
+because it is called for both IOException and IndexOutOfBoundException.
+
+That's why from Java 7 we could replace the list of exceptions on ``catch`` clause with **Exception**. 
+It indicates to the compiler that **only the exceptions listed on the method signature** must be caught.
+
+The benefits are:
+ * you don't need to list exceptions on the ``catch`` clause
+ * if the method can throw a new exception, you only need to add it to the ``throws`` clause of the method signature
+ * if the method remove an exception from the ``throws`` clause of the method signature, you don't need to modify ``catch`` clause
+ 
+ [``RethrowingException.java``](src/multi_catch/RethrowingException.java) shows how to catch multiple exceptions on Java 6, 7 and 8.
  
 ## Exam tricks
 > **"expression" meaning** \
@@ -69,3 +114,6 @@ Follow Oracle's engineers recommendations on how to use assertions:
 > **"appropriate" != "legal"** \
 >"appropriate" always refers to the way in which something is supposed to be used, according to either 
 > the developers of the mechanism or best practices officially embraced by Oracle
+
+> Never, ever assign a new value to the single-catch parameter (classic try-catch)! \
+> It compiles, but it is not recommended by Oracle!
