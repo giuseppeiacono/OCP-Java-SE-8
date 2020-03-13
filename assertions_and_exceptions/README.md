@@ -5,6 +5,9 @@
     - [How to use correctly assertions](#how-to-use-correctly-assertions)
 + [Multi-catch](#multi-catch)
 + [Rethrowing exceptions](#rethrowing-exceptions)
++ [Try-with-resources statement](#try-with-resources-statement)
+    - [Benefits](#benefits)
+    - [Backward compatibility](#backward-compatibility)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -91,7 +94,7 @@ public void rethrowExceptions() throws IOException, IndexOutOfBoundException {
 }
 ```
 Remember that multi-catch was created to avoid duplicated code, while in this case log(e) is a kind of duplicate code 
-because it is called for both IOException and IndexOutOfBoundException.
+because it is called for both ``IOException`` and ``IndexOutOfBoundException``.
 
 That's why from Java 7 we could replace the list of exceptions on ``catch`` clause with **Exception**. 
 It indicates to the compiler that **only the exceptions listed on the method signature** must be caught.
@@ -103,6 +106,30 @@ The benefits are:
  
  [``RethrowingException.java``](src/multi_catch/RethrowingException.java) shows how to catch multiple exceptions on Java 6, 7 and 8.
  
+## Try-with-resources statement
+This statement was invented in Java 7 to close automatically resources.
+```
+try (Reader reader = new BufferedReader(new FileReader(file));
+        AnotherResource ar = new AnotherResource()) {
+    // do stuff
+}
+```
+Let's see how does it works:
+ 1. declare your resources (classes which implements [``AutoCloseable``](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html) interface) inside ``try`` declaration, separated by semicolon character
+ 2. ``catch`` clause is optional
+ 3. ``finally`` block that close resources is automatically generated and invoked, but you can add your own ``finally`` block that would be executed with the previous one
+
+### Benefits
+This new statement has greatly facilitated the effort of developers because it took away the responsibility to write code that close resources. 
+The result is obvious: saving time and less code lines! 
+
+### Backward compatibility
+The new interface [``AutoCloseable``](https://docs.oracle.com/javase/7/docs/api/java/lang/AutoCloseable.html) was put on top of the existing interface
+[``Closeable interface``](https://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html) to guarantee the backward compatibility and 
+allow to resources to throw any ``Excpetion``, as shown in the image below:
+
+![alt text](readme_resources/AutoCloseable-and-Closeable.png)
+  
 ## Exam tricks
 > **"expression" meaning** \
 > Any question about assertions that refers to "expression" without specify if it is a boolean test or 
