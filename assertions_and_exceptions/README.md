@@ -8,6 +8,7 @@
 + [Try-with-resources statement](#try-with-resources-statement)
     - [Benefits](#benefits)
     - [Backward compatibility](#backward-compatibility)
++ [Suppressed exceptions](#suppressed-exceptions)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -129,7 +130,16 @@ The new interface [``AutoCloseable``](https://docs.oracle.com/javase/7/docs/api/
 allow to resources to throw any ``Excpetion``, as shown in the image below:
 
 ![alt text](readme_resources/AutoCloseable-and-Closeable.png)
-  
+
+## Suppressed exceptions
+It's totally legal and good practice throw an exception when ``AtuoCloseable`` and ``Closeable`` resources are closed. 
+But what happen if another exception was already thrown previously?
+
+Java manage this case by following one simple rule:
+> the exception thrown by ``close()`` method is added to suppressed array if another exception was thrown previously
+
+Look at [SuppressedExceptions.java](src/try_catch_with_resources/SuppressedExcpetions.java) to see a couple of examples.
+
 ## Exam tricks
 > **"expression" meaning** \
 > Any question about assertions that refers to "expression" without specify if it is a boolean test or 
