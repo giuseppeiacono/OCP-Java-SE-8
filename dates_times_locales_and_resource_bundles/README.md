@@ -26,7 +26,7 @@ The exam will be focused on the following classes of this new package. The image
 Take a look at [the code examples](src/date_and_time/DateAndTime.java) to understand how to create and adjust datetime objects.
 
 ## ZONED Dates and times
-> ``ZonedDateTime.java`` = ``LocalDateTime`` + time zone
+> ``ZonedDateTime`` = ``LocalDateTime`` + time zone
 
 Follow the basic concepts of time zones:
  * all time zones are based on GMT (Greenwich Mean Time) which use as time standard UTC (Coordinated Universal Time).
@@ -41,4 +41,8 @@ Follow the basic concepts of time zones:
     > }
     > ```
  * ``ZoneRules`` has all the rules about time zones, daylight savings and standard time
- * ``OffsetDateTime`` is a fixed datetime and offset independent from``ZoneRules`` 
+ * ``OffsetDateTime`` is a fixed datetime and offset independent from``ZoneRules``
+ 
+ Look at [``DateTimeWithTimeZone``](src/date_and_time/DateTimeWithTimeZone.java) to see some basic operation with ``ZonedDateTime``.
+
+## 
