@@ -60,15 +60,15 @@ The new package ``java.time.*`` provides two classes to represent a period of ti
  * ``Period`` represent a period of time >= 1 DAY
  * ``Duration`` represent a period of time < 1 DAY
  
-Both could be added or subtracted from ``LocalDateTime`` and ``ZonedDateTime``. For instance, if you need to set a reminder for one week before 
-you could it:
+Both could be added-to or subtracted-from ``LocalDateTime`` and ``ZonedDateTime``. For instance, if you need to set a reminder 
+one week before an event you could do it:
 ```
 ZonedDateTime event = ZonedDateTime.of(2020, 8, 2, 14, 30, 0, 0, ZoneId.of("Europe/Madrid"));
 Period oneMonthPeriod = Period.ofMonths(1);
 ZonedDateTime reminder = event.minus(oneMonthPeriod); 
-``` 
+```
 
-``ChronoUnit`` is an enum that represent a unit of time like they could be minutes or months. This class is commonly used when we need to calculate 
+``ChronoUnit`` is an enum that represent a unit of time (minutes, months...). This class is commonly used when we need to calculate 
 the time difference between two ``LocalTime`` and create a ``Duration`` from it.
 ```
 LocalTime beginning = LocalTime.parse("11:23:00");
@@ -77,11 +77,11 @@ long timeDifference = ChronoUnit.MINUTES.between(beginning, end);
 Duration durationMinutes = Duration.ofMinutes(timeDifference);
 System.out.println("Duration is " + durationMinutes);
 ```
-The output of this code is **Duration is PT3H30M**, where PT means "period of time" and the remaining value is the difference of time of three hours and 30 minutes.
+The output is **Duration is PT3H30M**, where PT means "period of time" and the remaining value is the difference of time of three hours and 30 minutes.
 
 ### NBA match reminders
 We talk about several features of the new ``java.time.*`` package that are very intuitive and simplify the way to deal with datetime objects. 
-But now it's time to see a real example to understand how to make the most their power!
+But now it's time to see a real example in order to understand how to make the most their power!
 
 Suppose that Jose is living in Seville (Spain) and he love NBA! He would like to watch live match, but he need a reminder because they will play early in the morning in his time zone.
 Moreover, Jose and his American friend Mike like to comment on the match the day after it, so Jose need another reminder to be sure that Mike will be awake when he will make the video call. 
