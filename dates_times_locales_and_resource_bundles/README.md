@@ -5,6 +5,7 @@
 + [Date and time adjustment](#date-and-time-adjustment)
 + [Periods, Durations and Instants](#periods-durations-and-instants)
     - [NBA match reminders](#nba-match-reminders)
++ [Locale](#locale)
 + [Exam tricks](#exam-tricks)
 
 
@@ -87,6 +88,18 @@ Suppose that Jose is living in Seville (Spain) and he love NBA! He would like to
 Moreover, Jose and his American friend Mike like to comment on the match the day after it, so Jose need another reminder to be sure that Mike will be awake when he will make the video call. 
 
 The class [``NBAmatchReminder``](src/date_and_time/NBAMatchReminders.java) shows this scenario.
+
+## Locale
+The ``Locale`` class is in charge of to internationalize your code. For the exam is enough to know: 
+ 1. you can only find these constructors:
+    > Locale(String language) \
+      Locale(String language, String country)
+ 
+ 2. The same ``ZonedDateTime`` is formatted in a several ways depending on the locale
+  
+ 3. Both language and country are given in terms of default locale or other locales
+ 
+There are some samples into [``Locales`` class](src/date_and_time/Locales.java).
 
 ## Exam tricks
 > **``Instant`` is always displayed in UTC!!!**
