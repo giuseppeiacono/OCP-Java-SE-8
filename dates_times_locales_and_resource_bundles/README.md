@@ -3,6 +3,10 @@
 + [Dates and times](#dates-and-times)
 + [ZONED Dates and times](#zoned-dates-and-times)
 + [Date and time adjustment](#date-and-time-adjustment)
++ [Periods, Durations and Instants](#periods-durations-and-instants)
+    - [NBA match reminders](#nba-match-reminders)
++ [Exam tricks](#exam-tricks)
+
 
 ## Overview
 This module includes one of the biggest news of Java 8, the package ``java.time.*`` that will totally replace the oldest classes:
@@ -63,3 +67,30 @@ ZonedDateTime event = ZonedDateTime.of(2020, 8, 2, 14, 30, 0, 0, ZoneId.of("Euro
 Period oneMonthPeriod = Period.ofMonths(1);
 ZonedDateTime reminder = event.minus(oneMonthPeriod); 
 ``` 
+
+``ChronoUnit`` is an enum that represent a unit of time like they could be minutes or months. This class is commonly used when we need to calculate 
+the time difference between two ``LocalTime`` and create a ``Duration`` from it.
+```
+LocalTime beginning = LocalTime.parse("11:23:00");
+LocalTime end = LocalTime.parse("14:53:00");
+long timeDifference = ChronoUnit.MINUTES.between(beginning, end);
+Duration durationMinutes = Duration.ofMinutes(timeDifference);
+System.out.println("Duration is " + durationMinutes);
+```
+The output of this code is **Duration is PT3H30M**, where PT means "period of time" and the remaining value is the difference of time of three hours and 30 minutes.
+
+### NBA match reminders
+We talk about several features of the new ``java.time.*`` package that are very intuitive and simplify the way to deal with datetime objects. 
+But now it's time to see a real example to understand how to make the most their power!
+
+Suppose that Jose is living in Seville (Spain) and he love NBA! He would like to watch live match, but he need a reminder because they will play early in the morning in his time zone.
+Moreover, Jose and his American friend Mike like to comment on the match the day after it, so Jose need another reminder to be sure that Mike will be awake when he will make the video call. 
+
+The class [``NBAmatchReminder``](src/date_and_time/NBAMatchReminders.java) shows this scenario.
+
+## Exam tricks
+> **``Instant`` is always displayed in UTC!!!**
+>
+> Even if you get an ``Instant`` from a ``ZonedDateTime``, it is always displayed in UTC. That's why the method ``toString()`` use the format 
+> [``DateTimeFormatter.ISO_INSTANT``](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_INSTANT) as indicated in
+> [the official documentation](https://docs.oracle.com/javase/8/docs/api/java/time/Instant.html#toString--) 
