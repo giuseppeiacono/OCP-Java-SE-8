@@ -7,6 +7,8 @@
     - [NBA match reminders](#nba-match-reminders)
 + [Locale](#locale)
 + [Properties files](#properties-files)
++ [Resource bundle](#resource-bundle)
+    - [Java rules to choose the right resource bunble](#java-rules-to-choose-the-right-resource-bunble)
 + [Exam tricks](#exam-tricks)
 
 
@@ -96,7 +98,7 @@ The ``Locale`` class is in charge of to internationalize your code. For the exam
     > Locale(String language) \
       Locale(String language, String country)
  
- 2. The same ``ZonedDateTime`` is formatted in a several ways depending on the locale
+ 2. The same ``ZonedDateTime`` is formatted in several ways depending on the locale
   
  3. Both language and country are given in terms of default locale or other locales
  
@@ -105,7 +107,7 @@ There are some samples into [``Locales`` class](src/date_and_time/Locales.java).
 ## Properties files
 Properties files are used to externally store configuration settings and parameters of our applications. There are three types of properties:
  1. ``java.lang.System`` (**NOT in the exam**): holds system information like
- 2. ``java.util.Properties``: custom properties files for any application
+ 2. ``java.util.Properties``: custom properties files for our application
  3. ``java.util.ResourceBundle``: add localization and internationalization to our applications using ``java.util.Properties``
 
 On the exam we will find the following methods of the ``Properties`` class:
@@ -113,7 +115,14 @@ On the exam we will find the following methods of the ``Properties`` class:
    void list(PrintStream out) \
    void load(InputStream inStream) \
    Object setProperty(String key, String value) \
-   void store(OutputStream out, String headerComment)  
+   void store(OutputStream out, String headerComment)
+
+## Resource bundle
+Java allows to create our own class that extends ``ListResourceBundle`` in order to store key-value pairs where the value could be any object. 
+Take a look at the example into ``Locales`` class where the method ``printLabelsEnCaResourceBundle()`` print the content of ``Labels_en_CA.java``.
+
+### Java rules to choose the right resource bunble
+![alt text](readme_resources/how-java-choose-the-right-resource-bundle.png)
 
 ## Exam tricks
 > **``Instant`` is always displayed in UTC!!!**
@@ -126,3 +135,10 @@ On the exam we will find the following methods of the ``Properties`` class:
 >
 > Even if ``java.util.Properties`` inherits from ``java.util.Hashtable``, Oracle encourages you to use the methods of ``Properties`` 
   class because they use arguments of type String
+
+> **Advantages of using resource bundle**
+>
+> When in the exam you encounter questions about the advantages of using resource bundle you should refer to Java API reasons:
+>  * Be easily localized, or translated, into different languages  
+>  * Handle multiple locales at once
+>  * Be easily modified later to support even more locales"
