@@ -6,6 +6,7 @@
 + [Periods, Durations and Instants](#periods-durations-and-instants)
     - [NBA match reminders](#nba-match-reminders)
 + [Locale](#locale)
++ [Properties files](#properties-files)
 + [Exam tricks](#exam-tricks)
 
 
@@ -91,7 +92,7 @@ The class [``NBAmatchReminder``](src/date_and_time/NBAMatchReminders.java) shows
 
 ## Locale
 The ``Locale`` class is in charge of to internationalize your code. For the exam is enough to know: 
- 1. you can only find these constructors:
+ 1. You can only find these constructors:
     > Locale(String language) \
       Locale(String language, String country)
  
@@ -101,9 +102,27 @@ The ``Locale`` class is in charge of to internationalize your code. For the exam
  
 There are some samples into [``Locales`` class](src/date_and_time/Locales.java).
 
+## Properties files
+Properties files are used to externally store configuration settings and parameters of our applications. There are three types of properties:
+ 1. ``java.lang.System`` (**NOT in the exam**): holds system information like
+ 2. ``java.util.Properties``: custom properties files for any application
+ 3. ``java.util.ResourceBundle``: add localization and internationalization to our applications using ``java.util.Properties``
+
+On the exam we will find the following methods of the ``Properties`` class:
+ > String getProperty(String key) \
+   void list(PrintStream out) \
+   void load(InputStream inStream) \
+   Object setProperty(String key, String value) \
+   void store(OutputStream out, String headerComment)  
+
 ## Exam tricks
 > **``Instant`` is always displayed in UTC!!!**
 >
 > Even if you get an ``Instant`` from a ``ZonedDateTime``, it is always displayed in UTC. That's why the method ``toString()`` use the format 
 > [``DateTimeFormatter.ISO_INSTANT``](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#ISO_INSTANT) as indicated in
-> [the official documentation](https://docs.oracle.com/javase/8/docs/api/java/time/Instant.html#toString--) 
+> [the official documentation](https://docs.oracle.com/javase/8/docs/api/java/time/Instant.html#toString--)
+
+> **Oracle recommendation**
+>
+> Even if ``java.util.Properties`` inherits from ``java.util.Hashtable``, Oracle encourages you to use the methods of ``Properties`` 
+  class because they use arguments of type String
