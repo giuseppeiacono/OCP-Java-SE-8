@@ -3,6 +3,7 @@
 + [Singleton Design Pattern](#singleton-design-pattern) 
     - [Singleton initialization](#singleton-initialization)
     - [Benefits](#benefits)
++ [Immutable classes](#immutable-classes)
 
 ## Overview
 This chapter of Oracle book resume a lot of the concepts concerning to ``OCA Java SE 8`` certification. 
@@ -29,3 +30,11 @@ There are two way to initialize the singleton object:
 ### Benefits
 * There is only one instance of the object in the program that keep track of information used across the application
 * The performance is better in case of objects that would be expensive to create
+
+## Immutable classes
+One class is considered immutable if it has all the requirements below:
+ * It is ``final`` so that it cannot be extended
+ * Its variables are ``private`` and ``final``
+ * The constructor make new copies of any mutable object
+ * Do not provide any setter method
+ * If any of the getter methods return a mutable object reference, make a copy of the actual object, and return the reference to the copy 
