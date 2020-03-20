@@ -1,5 +1,6 @@
 # Object orientation
 + [Overview](#overview)
++ [Instanceof operator](#instanceof-operator)
 + [Singleton Design Pattern](#singleton-design-pattern) 
     - [Singleton initialization](#singleton-initialization)
     - [Benefits](#benefits)
@@ -8,6 +9,23 @@
 ## Overview
 This chapter of Oracle book resume a lot of the concepts concerning to ``OCA Java SE 8`` certification. 
 As this project is focused on the topics covered in the ``OCP Java SE 8`` exam, you can see below just notes about these.
+
+## Instanceof operator
+The instanceof operator **CANNOT BE USED** if there is no relationship between the object and the type compared!!!
+
+If you do it, you'll get a compilation error as shown it the example below:
+
+> ```
+> File f = new File("myFile.txt");
+> FileWriter fw = new FileWriter(f);
+> BufferedWriter bw = new BufferedWriter(fw);
+> if (bw instanceof String) {
+>       System.out.println("bw is of type String");
+> }
+> 
+> // COMPILATION ERROR
+> incompatible types: java.io.BufferedWriter cannot be converted to java.lang.String
+> ```
 
 ## Singleton Design Pattern
 The OCP exam covers only this design pattern.
