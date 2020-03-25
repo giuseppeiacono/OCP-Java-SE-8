@@ -1,10 +1,13 @@
 # I/O and NIO.2
 + [Overview](#overview)
 + [Java I/O fundamentals](#java-io-fundamentals)
-    - [Classes involved in the exam](#classes-involved-in-the-exam)
+    - [I/O classes involved in the exam](#io-classes-involved-in-the-exam)
     - [Combining I/O classes](#combining-io-classes)
-    - [Work with files and directories](#work-with-files-and-directories)
+    - [Work with I/O files and directories](#work-with-io-files-and-directories)
 + [Java NIO.2](#java-nio2)
+    - [``Files``, ``Path`` and ``Paths``](#files-path-and-paths)
+        + [Work with NIO 2 files and directories](#work-with-nio-2-files-and-directories)
+        + [Work with NIO 2 paths](#work-with-nio-2-paths)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -18,7 +21,7 @@ This module consists of two main sections:
 ## Java I/O fundamentals
 Follow the classes and features included in the exam.
 
-### Classes involved in the exam
+### I/O classes involved in the exam
 You need to understand the following classes for the exam:
 
 ![alt text](readme_resources/file-and-console.png)
@@ -28,7 +31,7 @@ You need to understand the following classes for the exam:
 ![alt text](readme_resources/stream-input-output.png)
 
 ### Combining I/O classes
-You must know which chaining combinations of [Classes involved in the exam](#classes-involved-in-the-exam) are legal and which are illegal.
+You must know which chaining combinations of [I/O classes involved in the exam](#io-classes-involved-in-the-exam) are legal and which are illegal.
 
 | Class  | Super Class | Key Constructor  Arguments | Key Methods |
 | ------ | :---------: | -------------------------- | ----------- |
@@ -44,10 +47,41 @@ You must know which chaining combinations of [Classes involved in the exam](#cla
 The class [IOClassesLegalCombinations](src/IOClassesLegalCombinations.java) shows legal combinations of I/O classes above
 to get readers and writers from a file.
 
-### Work with files and directories
-
+### Work with I/O files and directories
+The class [IOWorkWithFilesAndDirectories](src/IOWorkWithFilesAndDirectories.java) resumes the operations to manage files and directories
+that you could find in the exam. 
 
 ## Java NIO.2
-
-## Exam tricks
+From Java 7 were introduced a couple of packages for which we will study just those used in the exam:
+ * ``java.nio.file``
+ * ``java.nio.file.attribute``
  
+### ``Files``, ``Path`` and ``Paths``
+
+![alt text](readme_resources/NIO-2-classes.png)
+
+#### Work with NIO 2 files and directories
+On the exam are used the features below to work with NIO.2 files and directories:
+ * They are both created with method ``Paths.get()``
+ * You can copy, move and delete them with the corresponding methods of class ``Files``  
+
+Useful examples are supplied by the class [NIO2WorkWithFilesAndDirectories](src/NIO2WorkWithFilesAndDirectories.java) 
+
+#### Work with NIO 2 paths
+
+ 
+## Exam tricks
+> **Directories MUST BE created with mkdir()** \
+> In the exam could find invalid code like that:
+> ```
+> File directory = new File("mydir");
+> File file = new File(directory, "myfile.txt");
+> file.createNewFile();
+> ``` 
+> The last statement throws an ``IOException`` because the directory was not created explicitly on the disk by ``mkdir()`` method
+
+> **``flush()``** \
+> This method is required only for ``Writer`` classes. In the exam you could find it on ``Reader`` classes for you to fail
+
+> **``File`` and ``Files`` --- ``Path`` and ``Paths``** \
+> Pay attention on the exam with these classes because their names are very similar, while they behave differently
