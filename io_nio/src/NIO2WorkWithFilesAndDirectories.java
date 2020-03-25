@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,11 +11,11 @@ public class NIO2WorkWithFilesAndDirectories {
     public static void main(String[] args) {
 
         // IMPORTANT!!!
-        // The code of this class supposes that all operations are always executed successfully
-        // because it has the only purpose to show the features that you will find on the exam
+        // The code check if directories and files already exist before to create them in order to avoid exceptions
 
         createPaths();
         createFilesAndDirectoriesOnTheDisk();
+        copyMoveDeleteFiles();
         backwardCompatibilitybetweenIOandNIO2();
     }
 
@@ -38,6 +39,9 @@ public class NIO2WorkWithFilesAndDirectories {
 
         Path dirPathFromDefaultFileSystem = Paths.get("/home/giuseppe/Desktop/my_dir");
         System.out.println("dirPathFromDefaultFileSystem = " + dirPathFromDefaultFileSystem);
+
+        // Just for Windows to browse to a folder in Iternet Explorer
+        // Path windowsFile = Paths.get(URI.create("file///C:/temp"));
     }
 
     private static void createFilesAndDirectoriesOnTheDisk() {
@@ -51,36 +55,62 @@ public class NIO2WorkWithFilesAndDirectories {
         Path anotherFilePath = Paths.get("/home/giuseppe/Desktop/NIO2_in_one_go/other_files/another_file.txt");
 
         try {
-            createNewDirectoriesOneByOne(newDirPath1, newDirPath2, filePath);
+            createNewDirectoriesOneByOne(filePath, newDirPath1, newDirPath2);
             createNewDirectoriesInOneGo(newDirectoriesPath, anotherFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void createNewDirectoriesOneByOne(Path newDirPath1, Path newDirPath2, Path filePath) throws IOException {
-        System.out.println("1. Created new  directories ONE BY ONE");
-        if (Files.notExists(newDirPath1)) {
-            Files.createDirectory(newDirPath1);
-            System.out.println("\tCreated directory " + newDirPath1.getName(newDirPath1.getNameCount()-1));
-        }
-        if (Files.notExists(newDirPath2)) {
-            Files.createDirectory(newDirPath2);
-            System.out.println("\tCreated directory " + newDirPath2.getName(newDirPath2.getNameCount() - 1));
+    private static void createNewDirectoriesOneByOne(Path filePath, Path... newDirPaths) throws IOException {
+        System.out.println("Created new  directories ONE BY ONE");
+        for (Path newDirPath: newDirPaths) {
+            if (Files.notExists(newDirPath)) {
+                Files.createDirectory(newDirPath);
+                System.out.println("\tCreated directory " + newDirPath.getName(newDirPath.getNameCount()-1));
+            }
         }
         if (Files.notExists(filePath)) {
             Files.createFile(filePath);
         }
-        System.out.println("\tCreated file " + filePath.toString());
+        System.out.println("\tcreated file " + filePath.toString());
     }
 
     private static void createNewDirectoriesInOneGo(Path newDirectoriesPath, Path anotherFilePath) throws IOException {
-        System.out.println("\n2. Created new  directories IN ONE GO");
+        System.out.println("Created new  directories IN ONE GO");
         Files.createDirectories(newDirectoriesPath);
         if (Files.notExists(anotherFilePath)) {
             Files.createFile(anotherFilePath);
         }
-        System.out.println("\tCreated file " + anotherFilePath.toString());
+        System.out.println("\tcreated file " + anotherFilePath.toString());
+    }
+
+    private static void copyMoveDeleteFiles() {
+        System.out.println("\n--------------- Copy, move and delete files on the disk ---------------");
+
+        Path NIO2 = Paths.get("/home/giuseppe/Desktop/NIO2");
+        Path source = Paths.get("/home/giuseppe/Desktop/NIO2/file1.txt");
+        Path target = Paths.get("/home/giuseppe/Desktop/NIO2/file2.txt");
+
+        try {
+            Files.deleteIfExists(source);
+            Files.deleteIfExists(target);
+
+            createNewDirectoriesInOneGo(NIO2, source);
+
+            Files.copy(source, target);
+            Path targetName = target.getFileName();
+            Path sourceName = source.getFileName();
+            System.out.println("COPY > ontent of " + sourceName + " copied on " + targetName + ": " + Files.exists(target));
+
+            Files.deleteIfExists(target);
+            System.out.println("DELETE > " + targetName + " deleted: " + !Files.exists(target));
+
+            Files.move(source, target);
+            System.out.println("MOVE > " + sourceName + " moved on " + targetName + ": " + (!Files.exists(source) && Files.exists(target)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void backwardCompatibilitybetweenIOandNIO2() {
