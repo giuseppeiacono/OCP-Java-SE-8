@@ -68,8 +68,28 @@ On the exam are used the features below to work with NIO.2 files and directories
 Useful examples are supplied by the class [NIO2WorkWithFilesAndDirectories](src/NIO2WorkWithFilesAndDirectories.java) 
 
 #### Work with NIO 2 paths
+In the exam you will find the following methods of ``Path`` class:
+```
+String getFileName()
+Path getName(int index)    // zero index is the one closest to the root
+int getNameCount()
+Path getParent()
+Path getRoot()
+Path subpath(int beginIndex, int endIndex)
+String toString()
+```
 
+We can do several things with paths:
+ 1. Retrieving information with methods above
+ 2. Normalizing a path
+ 3. Resolving a path (combine two paths)
+ 4. Relativizing a path (the opposite of resolving)
  
+> **WARNING** \
+> ``normalize()``, ``resolve()`` and ``relativize()`` does not check if the path exists!!! 
+ 
+For more details look at [``NIO2WorkWithPath``](src/NIO2WorkWithFilesAndDirectories.java) examples.
+
 ## Exam tricks
 > **Directories MUST BE created with mkdir()** \
 > In the exam could find invalid code like that:
