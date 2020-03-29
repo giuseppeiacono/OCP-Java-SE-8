@@ -102,7 +102,7 @@ The ``Locale`` class is in charge of to internationalize your code. For the exam
   
  3. Both language and country are given in terms of default locale or other locales
  
-There are some samples into [``Locales`` class](src/date_and_time/Locales.java).
+There are some samples into [``Locales``](src/locale/Locales.java).
 
 ## Properties files
 Properties files are used to externally store configuration settings and parameters of our applications. There are three types of properties:
@@ -119,7 +119,7 @@ On the exam we will find the following methods of the ``Properties`` class:
 
 ## Resource bundle
 Java allows to create our own class that extends ``ListResourceBundle`` in order to store key-value pairs where the value could be any object. 
-Take a look at the example into [``Locales`` class](src/date_and_time/Locales.java) where the method ``printLabelsEnCaResourceBundle()`` print the content of ``Labels_en_CA.java``.
+Take a look at the example into [``Locales``](src/locale/Locales.java) where the method ``printLabelsEnCaResourceBundle()`` print the content of [``Labels_en_CA.java``](src/locale/Labels_en_CA.java).
 
 ### Java rules to choose the right resource bunble
 ![alt text](readme_resources/how-java-choose-the-right-resource-bundle.png)

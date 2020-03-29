@@ -1,4 +1,4 @@
-package date_and_time;
+package locale;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,7 +40,7 @@ public class Locales {
 
     private static void printLabelsEnCaResourceBundle() {
         Locale locale = new Locale("en", "CA");
-        ResourceBundle rb = ResourceBundle.getBundle("date_and_time.Labels", locale);
+        ResourceBundle rb = ResourceBundle.getBundle("locale.Labels", locale);
         System.out.println("\nContent of the custom resource bundle Labels_en_CA.java:");
         System.out.println("list = " + rb.getObject("list"));
         System.out.println("boolean = " + rb.getObject("boolean"));
