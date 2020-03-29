@@ -1,5 +1,3 @@
-package java.main;
-
 /**
  * The simplest way to implement this pattern on Java 8+
  * It's not thread-safe, but we could fix it by adding synchronized to the method getInstance() or

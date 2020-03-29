@@ -1,5 +1,3 @@
-package java.main;
-
 /**
  * The older version of the pattern as enum. Sometimes you still need it
  */
