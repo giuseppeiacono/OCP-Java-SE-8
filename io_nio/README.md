@@ -88,7 +88,7 @@ We can do several things with paths:
 > **WARNING** \
 > ``normalize()``, ``resolve()`` and ``relativize()`` does not check if the path exists!!! 
  
-For more details look at [``NIO2WorkWithPath``](src/NIO2WorkWithFilesAndDirectories.java) examples.
+For more details look at [``NIO2WorkWithPath``](src/NIO2WorkWithPath.java) examples.
 
 ## Exam tricks
 > **Directories MUST BE created with mkdir()** \
@@ -105,3 +105,15 @@ For more details look at [``NIO2WorkWithPath``](src/NIO2WorkWithFilesAndDirector
 
 > **``File`` and ``Files`` --- ``Path`` and ``Paths``** \
 > Pay attention on the exam with these classes because their names are very similar, while they behave differently
+
+> **``resolve()``** \
+> ```
+> // It won't compile because the compiler don't know if call method with ``Path`` parameter or ``String`` parameter:
+> path.resolve(null);
+> ```
+
+> **``relativize()``** \
+> ```
+> // It won't compile because the compiler don't know if call method with ``Path`` parameter or ``String`` parameter:
+> path.resolve(null);
+> ```

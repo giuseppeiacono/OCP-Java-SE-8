@@ -4,6 +4,7 @@ import java.nio.file.Paths;
 public class NIO2WorkWithPath {
 
     public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_RESET  = "\u001B[0m";
     private static final Path RELATIVE_PATH = Paths.get("io_nio/src/NIO2WorkWithPath.java");
 
     public static void main(String[] args) {
@@ -44,15 +45,38 @@ public class NIO2WorkWithPath {
         System.out.println("\u25E6 absolute + relative: " + absolutePath.resolve(relativePath));
         System.out.println("\u25E6 absolute + file: " + absolutePath.resolve(filePath));
         System.out.println("\u25E6 relative + file: " + relativePath.resolve(filePath));
-        System.out.println(ANSI_RED + "Some of the paths above does not exists! The method resolve() does not check it" + ANSI_RED);
+        System.out.println(ANSI_RED + "The method resolve() does not check if the path returned exists!" + ANSI_RESET);
 
         System.out.println("\nILLEGAL use of resolve method:");
-        System.out.println("\u25E6 " + relativePath.resolve(absolutePath));
-        System.out.println("\u25E6 " + filePath.resolve(relativePath));
-        System.out.println("\u25E6 " + filePath.resolve(absolutePath));
+        System.out.println("\u25E6 " + ANSI_RED + "relative + absolute: " + ANSI_RESET + relativePath.resolve(absolutePath));
+        System.out.println("\u25E6 " + ANSI_RED + "file + relative: " + ANSI_RESET + filePath.resolve(relativePath));
+        System.out.println("\u25E6 " + ANSI_RED + "file + absolute: " + ANSI_RESET + filePath.resolve(absolutePath));
     }
 
     private static void relativizePath() {
         System.out.println("\n--------------- Relativize path ---------------------------------------------");
+        String classPath = NIO2WorkWithPath.class.getClassLoader().getResource("").getPath();
+        Path absoluteClassPath = Paths.get(classPath);
+        Path absolute1 = absoluteClassPath.subpath(0, 2);
+        Path absolute2 = absoluteClassPath.subpath(0, 3);
+        int nameCount = absoluteClassPath.getNameCount();
+        Path relative1 = absoluteClassPath.subpath(3,   nameCount -1);
+        Path relative2 = absoluteClassPath.subpath(nameCount -2, nameCount -1);
+
+        System.out.println("class path = " + classPath);
+        System.out.println("absolute1 = " + absolute1);
+        System.out.println("absolute2 = " + absolute2);
+        System.out.println("relative1 = " + relative1);
+        System.out.println("relative2 = " + relative2);
+
+        System.out.println("\nLegal examples of relativize method:");
+        System.out.println("\u25E6 absolute1.relativize(absolute2) = " + absolute1.relativize(absolute2));
+        System.out.println("\u25E6 absolute2.relativize(absolute1) = " + absolute2.relativize(absolute1));
+        System.out.println("\u25E6 relative1.relativize(relative2) = " + relative1.relativize(relative2));
+        System.out.println(ANSI_RED + "The method relativize() does not check if the path returned exists!" + ANSI_RESET);
+
+        System.out.println("\nILLEGAL use of relativize method:");
+        System.out.println("\u25E6 absolute1.relativize(relative1) = " + absolute1.relativize(relative1));
+        System.out.println(ANSI_RED + "Java can't figure out how to make a relative path out of one absolute path and one relative path" + ANSI_RESET);
     }
 }
