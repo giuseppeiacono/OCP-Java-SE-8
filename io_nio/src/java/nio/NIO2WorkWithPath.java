@@ -1,3 +1,5 @@
+package java.nio;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -5,7 +7,7 @@ public class NIO2WorkWithPath {
 
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_RESET  = "\u001B[0m";
-    private static final Path RELATIVE_PATH = Paths.get("io_nio/src/NIO2WorkWithPath.java");
+    private static final Path RELATIVE_PATH = Paths.get("io_nio/src/java/nio/NIO2WorkWithPath.java");
 
     public static void main(String[] args) {
         getPathInfo();

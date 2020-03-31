@@ -1,3 +1,5 @@
+package java.io;
+
 import java.io.*;
 
 /**
@@ -11,10 +13,12 @@ public class IOClassesLegalCombinations {
             File file = new File("file.txt");
 
             // create file on the disk
-            file.createNewFile();
+            boolean fileCreated = file.createNewFile();
 
-            combinationsToCreateReadersFrom(file);
-            combinationsToCreateWritersFrom(file);
+            if (fileCreated) {
+                combinationsToCreateReadersFrom(file);
+                combinationsToCreateWritersFrom(file);
+            }
         }
         catch (IOException e) {
             // do stuff
