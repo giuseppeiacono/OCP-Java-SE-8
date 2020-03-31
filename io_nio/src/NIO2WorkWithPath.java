@@ -77,6 +77,6 @@ public class NIO2WorkWithPath {
 
         System.out.println("\nILLEGAL use of relativize method:");
         System.out.println("\u25E6 absolute1.relativize(relative1) = " + absolute1.relativize(relative1));
-        System.out.println(ANSI_RED + "Java can't figure out how to make a relative path out of one absolute path and one relative path" + ANSI_RESET);
+        System.out.println(ANSI_RED + "Java can't figure out how to make a relative path out of one ABSOLUTE path and one RELATIVE path" + ANSI_RESET);
     }
 }

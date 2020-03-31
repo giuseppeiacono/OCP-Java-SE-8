@@ -8,6 +8,11 @@
     - [``Files``, ``Path`` and ``Paths``](#files-path-and-paths)
         + [Work with NIO 2 files and directories](#work-with-nio-2-files-and-directories)
         + [Work with NIO 2 paths](#work-with-nio-2-paths)
+    - [File attributes](#file-attributes)
+    - [``DirectoryStream``](#directorystream)
+    - [File visitors](#file-visitors)
+    - [``PathMatcher``](#pathmatcher)
+        + [Globs](#globs)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -89,6 +94,59 @@ We can do several things with paths:
 > ``normalize()``, ``resolve()`` and ``relativize()`` does not check if the path exists!!! 
  
 For more details look at [``NIO2WorkWithPath``](src/NIO2WorkWithPath.java) examples.
+
+### File attributes
+For the exam you should know that the package ``java.nio.file.attribute`` provides two interfaces to work with file attributes:
+ * ``BasicFileAttributes`` to read 
+ * ``BasicFileAttributeView`` to update
+
+The class ``Files`` has a couple of methods that return the previous objects:
+ * ``readAttributes(path, XXXFileAttributes.class)`` 
+ * ``getFileAttributeView(path, XXXFileAttributeView.class)``
+ 
+### ``DirectoryStream``
+It let you iterate through a directory. Follow a couple of way to get it from ``Files``.
+```
+Files.newDirectoryStream(path);
+Files.newDirectoryStream(path, glob);
+```
+It has one big limitation: it streams one directory at a time
+
+### File visitors
+You could need a file visitor to process files/directories under a directory structure.
+
+For instance, if you need to delete all ``.class`` files under a complex directory tree (e.g. huge Java application) 
+you can create your own file visitor by extending class ``SimpleFileVisitor<T>`` and overriding the methods you want.
+The method ``Files.walkFileTree`` knows how to recursively look through the directory structure.
+```
+// Methods of SimpleFileVisitor that could be overriden
+preVisitDirectory
+visitFile
+visitFileFailed
+postVisitDirectory
+```
+The last two methods above has an ``IOException`` parameter that indicates to the method how to handle some issues.
+
+### ``PathMatcher``
+This interface allows to perform match operations on paths. The syntax of paths depends on the operating system so we
+can obtain the path matcher from ``FileSystems`` class, passing a [glob](#globs) as parameter.
+```
+PathMatcher pathMatcher = FileSystems.getDefault()
+                            .getPathMatcher("glob:*.txt");
+```
+
+#### Globs
+**!!! They are not regular expressions !!!**
+
+They are patterns to match file names. They can be used by classes like ``DirectoryStream`` and ``PathMatcher``
+
+| Pattern | What to match |
+| ------- | ------------- |
+| * | Zero or more of any character, **NOT** including a directory boundary |
+| ** | Zero or more of any character, including a directory boundary |
+| ? | Exactly one character |
+| [0-9] | Any digit |
+| {java, angular} | Begins with one of the string in the set |
 
 ## Exam tricks
 > **Directories MUST BE created with mkdir()** \
