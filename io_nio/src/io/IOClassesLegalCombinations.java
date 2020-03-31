@@ -13,6 +13,7 @@ public class IOClassesLegalCombinations {
             File file = new File("file.txt");
 
             // create file on the disk
+            file.delete();
             boolean fileCreated = file.createNewFile();
 
             if (fileCreated) {
@@ -26,15 +27,24 @@ public class IOClassesLegalCombinations {
     }
 
     private static void combinationsToCreateReadersFrom(File file) throws FileNotFoundException {
+        System.out.println("\n--------------- READERS ---------------");
         FileReader fileReader = new FileReader(file);
+        System.out.println("\u25E6 FileReader from File");
         FileInputStream fileInputStream = new FileInputStream(file);
+        System.out.println("\u25E6 FileInputStream from File");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
+        System.out.println("\u25E6 BufferedReader from FileReader");
     }
 
     private static void combinationsToCreateWritersFrom(File file) throws IOException {
+        System.out.println("\n--------------- WRITERS ---------------");
         FileWriter fileWriter = new FileWriter(file);
+        System.out.println("\u25E6 FileWriter from File");
         PrintWriter printWriter = new PrintWriter(file);
+        System.out.println("\u25E6 PrintWriter from File");
         FileOutputStream fileOutputStream = new FileOutputStream(file);
+        System.out.println("\u25E6 FileOutputStream from File");
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        System.out.println("\u25E6 BufferedWriter from FileWriter");
     }
 }
