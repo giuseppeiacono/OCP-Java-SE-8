@@ -1,4 +1,4 @@
-package java.io;
+package io;
 
 import java.io.*;
 

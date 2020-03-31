@@ -49,11 +49,11 @@ You must know which chaining combinations of [I/O classes involved in the exam](
 | BufferedReader | Reader | Reader | read() <br/> readLine() |
 | FileInputStream | InputStream | File <br/> String | read() <br/> close() |
 
-The class [java.io.IOClassesLegalCombinations](src/java/io/IOClassesLegalCombinations.java) shows legal combinations of I/O classes above
+The class [IOClassesLegalCombinations](src/io/IOClassesLegalCombinations.java) shows legal combinations of I/O classes above
 to get readers and writers from a file.
 
 ### Work with I/O files and directories
-The class [java.io.IOWorkWithFilesAndDirectories](src/java/io/IOWorkWithFilesAndDirectories.java) resumes the operations to manage files and directories
+The class [IOWorkWithFilesAndDirectories](src/io/IOWorkWithFilesAndDirectories.java) resumes the operations to manage files and directories
 that you could find in the exam. 
 
 ## Java NIO.2
@@ -70,7 +70,7 @@ On the exam are used the features below to work with NIO.2 files and directories
  * They are both created with method ``Paths.get()``
  * You can copy, move and delete them with the corresponding methods of class ``Files``  
 
-Useful examples are supplied by the class [java.nio.NIO2WorkWithFilesAndDirectories](src/java/nio/NIO2WorkWithFilesAndDirectories.java) 
+Useful examples are supplied by the class [NIO2WorkWithFilesAndDirectories](src/nio/NIO2WorkWithFilesAndDirectories.java) 
 
 #### Work with NIO 2 paths
 In the exam you will find the following methods of ``Path`` class:
@@ -93,7 +93,7 @@ We can do several things with paths:
 > **WARNING** \
 > ``normalize()``, ``resolve()`` and ``relativize()`` does not check if the path exists!!! 
  
-For more details look at [``java.nio.NIO2WorkWithPath``](src/java/nio/NIO2WorkWithPath.java) examples.
+For more details look at [``NIO2WorkWithPath``](src/nio/NIO2WorkWithPath.java) examples.
 
 ### File attributes
 For the exam you should know that the package ``java.nio.file.attribute`` provides two interfaces to work with file attributes:
@@ -166,12 +166,13 @@ They are patterns to match file names. They can be used by classes like ``Direct
 
 > **``resolve()``** \
 > ```
-> // It won't compile because the compiler don't know if call method with ``Path`` parameter or ``String`` parameter:
+> // It won't compile because the compiler don't know if call 
+> // method with ``Path`` parameter or ``String`` parameter
 > path.resolve(null);
 > ```
 
 > **``relativize()``** \
 > ```
-> // It won't compile because the compiler don't know if call method with ``Path`` parameter or ``String`` parameter:
-> path.resolve(null);
+> // It throws NullPointerException at runtime
+> path.relativize(null);
 > ```
