@@ -74,7 +74,7 @@ Useful examples are supplied by the class [NIO2WorkWithFilesAndDirectories](src/
 
 #### Work with NIO 2 paths
 In the exam you will find the following methods of ``Path`` class:
-```
+```java
 String getFileName()
 Path getName(int index)    // zero index is the one closest to the root
 int getNameCount()

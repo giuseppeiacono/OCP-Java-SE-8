@@ -111,11 +111,13 @@ Properties files are used to externally store configuration settings and paramet
  3. ``java.util.ResourceBundle``: add localization and internationalization to our applications using ``java.util.Properties``
 
 On the exam we will find the following methods of the ``Properties`` class:
- > String getProperty(String key) \
-   void list(PrintStream out) \
-   void load(InputStream inStream) \
-   Object setProperty(String key, String value) \
-   void store(OutputStream out, String headerComment)
+ > ```java
+ > String getProperty(String key)
+ > void list(PrintStream out)
+ > void load(InputStream inStream)
+ > Object setProperty(String key, String value)
+ > void store(OutputStream out, String headerComment)
+ > ```
 
 ## Resource bundle
 Java allows to create our own class that extends ``ListResourceBundle`` in order to store key-value pairs where the value could be any object. 
