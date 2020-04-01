@@ -1,6 +1,10 @@
 # Default ignored files
+
+# Directories
 .idea/
 .out/
+
+# Files
 *.txt
 *.iml
 *.class
