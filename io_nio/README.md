@@ -127,6 +127,8 @@ postVisitDirectory
 ```
 The last two methods above has an ``IOException`` parameter that indicates to the method how to handle some issues.
 
+Take a look at the file visitors [``PrintAllFileTree``](src/nio/file_visitor/PrintAllFileTree.java) and [``PrintFileTreeByPathMatcher``](src/nio/file_visitor/PrintFileTreeByPathMatcher.java).
+
 ### ``PathMatcher``
 This interface allows to perform match operations on paths. The syntax of paths depends on the operating system so
 ``FileSystems`` class is in charge of to return the proper path matcher, passing a [glob](#globs) as parameter.
@@ -152,6 +154,8 @@ They are patterns to match file names. They can be used by classes like ``Direct
 | /**/ | One or more directories with any name |
 | ? | Exactly one character |
 | {java, angular} | Begins with one of the string in the set |
+
+You can see some examples on [``Glob``](src/nio/Glob.java).
 
 ## Exam tricks
 > **Directories MUST BE created with mkdir()** \
