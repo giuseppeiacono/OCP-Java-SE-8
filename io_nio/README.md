@@ -128,12 +128,14 @@ postVisitDirectory
 The last two methods above has an ``IOException`` parameter that indicates to the method how to handle some issues.
 
 ### ``PathMatcher``
-This interface allows to perform match operations on paths. The syntax of paths depends on the operating system so we
-can obtain the path matcher from ``FileSystems`` class, passing a [glob](#globs) as parameter.
+This interface allows to perform match operations on paths. The syntax of paths depends on the operating system so
+``FileSystems`` class is in charge of to return the proper path matcher, passing a [glob](#globs) as parameter.
 ```
 PathMatcher pathMatcher = FileSystems.getDefault()
                             .getPathMatcher("glob:*.txt");
 ```
+The class [``PatchMatcherWithGlob``](src/nio/PatchMatcherWithGlob.java) gives an idea of how patch matchers, globs 
+and file visitors work together. 
 
 #### Globs
 **!!! They are not regular expressions !!!**
@@ -142,10 +144,13 @@ They are patterns to match file names. They can be used by classes like ``Direct
 
 | Pattern | What to match |
 | ------- | ------------- |
+| w | Single character w |
+| \\* | The literal character *. One back slash escape the character while the other is needed by Java to escape the first back slash |
+| [0-9] | One single digit |
 | * | Zero or more of any character, **NOT** including a directory boundary |
 | ** | Zero or more of any character, including a directory boundary |
+| /**/ | One or more directories with any name |
 | ? | Exactly one character |
-| [0-9] | Any digit |
 | {java, angular} | Begins with one of the string in the set |
 
 ## Exam tricks
@@ -164,14 +169,14 @@ They are patterns to match file names. They can be used by classes like ``Direct
 > **``File`` and ``Files`` --- ``Path`` and ``Paths``** \
 > Pay attention on the exam with these classes because their names are very similar, while they behave differently
 
-> **``resolve()``** \
+> **``resolve()``**
 > ```
 > // It won't compile because the compiler don't know if call 
 > // method with ``Path`` parameter or ``String`` parameter
 > path.resolve(null);
 > ```
 
-> **``relativize()``** \
+> **``relativize()``**
 > ```
 > // It throws NullPointerException at runtime
 > path.relativize(null);
