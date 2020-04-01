@@ -42,7 +42,7 @@ public class NIO2WorkWithFilesAndDirectories {
         Path dirPathFromDefaultFileSystem = Paths.get("/home/giuseppe/Desktop/my_dir");
         System.out.println("dirPathFromDefaultFileSystem = " + dirPathFromDefaultFileSystem);
 
-        // Just for Windows to browse to a folder in Iternet Explorer
+        // Just for Windows to browse to a folder in Internet Explorer
         // Path windowsFile = Paths.get(URI.create("file///C:/temp"));
     }
 
