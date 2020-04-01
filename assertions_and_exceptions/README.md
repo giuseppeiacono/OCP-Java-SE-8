@@ -33,7 +33,7 @@ Assertions are managed by specific JVM options:
  * DISABLE assertions: ``-da`` or ``-disableassertions`` 
 
 Follow some examples of how to use options above in several ways: 
-```
+```shell script
 // Enable assertions in general
 java -ea com.assertion.MyClass
 java -enableassertions com.assertion.MyClass
@@ -65,7 +65,7 @@ Follow Oracle's engineers recommendations on how to use assertions:
    
 ## Multi-catch
 Multi-catch command was introduced on Java 7 with the purpose to merge several catch clauses in case they have exactly the same code.
- ```
+ ```java
 try {
     ...
 } catch (SQLException | IOException e) {
@@ -82,7 +82,7 @@ Look at [these examples](src/multi_catch/MultiCatchLegal.java) of legal multi-ca
 
 ## Rethrowing exceptions
 Some times we need to use the pattern "handle and declare" in order to process the exception caught and then rethrow it.
-```
+```java
 public void couldThrowExceptions() throws IOException, IndexOutOfBoundException { }
 
 public void rethrowExceptions() throws IOException, IndexOutOfBoundException {
@@ -109,7 +109,7 @@ The benefits are:
  
 ## Try-with-resources statement
 This statement was invented in Java 7 to close automatically resources.
-```
+```java
 try (Reader reader = new BufferedReader(new FileReader(file));
         AnotherResource ar = new AnotherResource()) {
     // do stuff

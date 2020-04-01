@@ -15,7 +15,7 @@ The instanceof operator **CANNOT BE USED** if there is no relationship between t
 
 If you do it, you'll get a compilation error as shown it the example below:
 
-> ```
+> ```java
 > File f = new File("myFile.txt");
 > FileWriter fw = new FileWriter(f);
 > BufferedWriter bw = new BufferedWriter(fw);

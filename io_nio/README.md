@@ -118,12 +118,12 @@ You could need a file visitor to process files/directories under a directory str
 For instance, if you need to delete all ``.class`` files under a complex directory tree (e.g. huge Java application) 
 you can create your own file visitor by extending class ``SimpleFileVisitor<T>`` and overriding the methods you want.
 The method ``Files.walkFileTree`` knows how to recursively look through the directory structure.
-```
+```java
 // Methods of SimpleFileVisitor that could be overriden
-preVisitDirectory
-visitFile
-visitFileFailed
-postVisitDirectory
+preVisitDirectory()
+visitFile()
+visitFileFailed()
+postVisitDirectory()
 ```
 The last two methods above has an ``IOException`` parameter that indicates to the method how to handle some issues.
 
@@ -132,7 +132,7 @@ Take a look at the file visitors [``PrintAllFileTree``](src/nio/file_visitor/Pri
 ### ``PathMatcher``
 This interface allows to perform match operations on paths. The syntax of paths depends on the operating system so
 ``FileSystems`` class is in charge of to return the proper path matcher, passing a [glob](#globs) as parameter.
-```
+```java
 PathMatcher pathMatcher = FileSystems.getDefault()
                             .getPathMatcher("glob:*.txt");
 ```
@@ -160,7 +160,7 @@ You can see some examples on [``Glob``](src/nio/Glob.java).
 ## Exam tricks
 > **Directories MUST BE created with mkdir()** \
 > In the exam could find invalid code like that:
-> ```
+> ```java
 > File directory = new File("mydir");
 > File file = new File(directory, "myfile.txt");
 > file.createNewFile();
@@ -174,14 +174,14 @@ You can see some examples on [``Glob``](src/nio/Glob.java).
 > Pay attention on the exam with these classes because their names are very similar, while they behave differently
 
 > **``resolve()``**
-> ```
+> ```java
 > // It won't compile because the compiler don't know if call 
 > // method with ``Path`` parameter or ``String`` parameter
 > path.resolve(null);
 > ```
 
 > **``relativize()``**
-> ```
+> ```java
 > // It throws NullPointerException at runtime
 > path.relativize(null);
 > ```

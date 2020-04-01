@@ -41,7 +41,7 @@ Follow the basic concepts of time zones:
  * all time zones are based on GMT (Greenwich Mean Time) which use as time standard UTC (Coordinated Universal Time).
  * each time zone is represented as a ``ZoneId``
     > NOTE: the complete list of time zones is not available on the documentation of class ``ZoneId``, but it can be obtained by code:
-    > ```
+    > ```java
     > Set<String> zoneIds = ZoneId.getAvailableZoneIds();
     > List<String> zoneList = new ArrayList<String>(zoneIds);
     > Collections.sort(zoneList);
@@ -66,7 +66,7 @@ The new package ``java.time.*`` provides two classes to represent a period of ti
  
 Both could be added-to or subtracted-from ``LocalDateTime`` and ``ZonedDateTime``. For instance, if you need to set a reminder 
 one week before an event you could do it:
-```
+```java
 ZonedDateTime event = ZonedDateTime.of(2020, 8, 2, 14, 30, 0, 0, ZoneId.of("Europe/Madrid"));
 Period oneMonthPeriod = Period.ofMonths(1);
 ZonedDateTime reminder = event.minus(oneMonthPeriod); 
@@ -74,7 +74,7 @@ ZonedDateTime reminder = event.minus(oneMonthPeriod);
 
 ``ChronoUnit`` is an enum that represent a unit of time (minutes, months...). This class is commonly used when we need to calculate 
 the time difference between two ``LocalTime`` and create a ``Duration`` from it.
-```
+```java
 LocalTime beginning = LocalTime.parse("11:23:00");
 LocalTime end = LocalTime.parse("14:53:00");
 long timeDifference = ChronoUnit.MINUTES.between(beginning, end);
