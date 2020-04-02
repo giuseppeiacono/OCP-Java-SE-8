@@ -39,7 +39,7 @@ public class NIO2WorkWithPath {
 
     private static void resolvePath() {
         System.out.println("\n--------------- Resolve path ---------------------------------------------");
-        Path absolutePath = Paths.get("/home/giuseppe/Documents/IntelliJ projects/OCP-Java-SE-8");
+        Path absolutePath = Paths.get("");
         Path relativePath = Paths.get("io_nio/src");
         Path filePath = Paths.get("NIO2WorkWithPath.java");
 
