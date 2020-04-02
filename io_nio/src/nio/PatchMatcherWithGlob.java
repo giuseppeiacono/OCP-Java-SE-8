@@ -1,6 +1,6 @@
 package nio;
 
-import common.PathUtilities;
+import common.TempDirUtility;
 import nio.file_visitor.PrintFileTreeByPathMatcher;
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class PatchMatcherWithGlob {
 
     private static void printFileTreeUsingFileVisitorAndPathMatcher() throws IOException {
         System.out.println("\n--------------- Printing of the temporal file tree by file visitor and path matcher ---------------");
-        Path tmpDirPath = PathUtilities.createTmpDirStructure();
+        Path tmpDirPath = TempDirUtility.createTmpDirStructure();
         String trickyGlob = Glob.TRICKY.getGlob();
         System.out.println("\n" + trickyGlob);
         System.out.println("Follow files and directories that match this glob");

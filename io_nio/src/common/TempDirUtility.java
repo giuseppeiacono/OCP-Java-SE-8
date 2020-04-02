@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class PathUtilities {
+public class TempDirUtility {
 
     private static final String TMP_DIR_PREFIX = "Java_8_OCP_";
 
