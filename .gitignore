@@ -2,7 +2,7 @@
 
 # Directories
 .idea/
-.out/
+out/
 
 # Files
 *.txt
