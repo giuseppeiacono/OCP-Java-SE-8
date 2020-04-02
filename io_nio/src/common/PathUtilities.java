@@ -40,9 +40,13 @@ public class PathUtilities {
         deleteTmpDirsToDeleteFile();
     }
 
-    private static void deleteTmpDirsToDeleteFile() throws IOException {
-        Files.deleteIfExists(TMP_DIRS_TO_DELETE_PATH);
-        System.out.println("Deleted " + TMP_DIRS_TO_DELETE_PATH);
+    private static Path createTmpDirsToDeleteFile() throws IOException {
+        Path projectPath = Paths.get("").toAbsolutePath();
+        Path tmpDirsToDeletePath = projectPath.resolve(TMP_DIRS_TO_DELETE_RELATIVE_PATH);
+        if (!Files.exists(tmpDirsToDeletePath)) {
+            Files.createFile(tmpDirsToDeletePath);
+        }
+        return tmpDirsToDeletePath;
     }
 
     private static void deleteTmpDirs() throws IOException {
@@ -67,15 +71,27 @@ public class PathUtilities {
                 });
     }
 
-    private static Path createTmpDirsToDeleteFile() throws IOException {
-        Path projectPath = Paths.get("").toAbsolutePath();
-        Path tmpDirsToDeletePath = projectPath.resolve(TMP_DIRS_TO_DELETE_RELATIVE_PATH);
-        if (!Files.exists(tmpDirsToDeletePath)) {
-            Files.createFile(tmpDirsToDeletePath);
-        }
-        return tmpDirsToDeletePath;
+    private static void deleteTmpDirsToDeleteFile() throws IOException {
+        Files.deleteIfExists(TMP_DIRS_TO_DELETE_PATH);
+        System.out.println("Deleted " + TMP_DIRS_TO_DELETE_PATH);
     }
 
+    /**
+     * Create the following temporal directory for Unix systems:
+     *
+     * / (root)
+     *      tmp
+     *          Java_8_OCP_[numerical_suffix]
+     * 		        java
+     * 			        src
+     * 			          |-- Square.java
+     * 			          |-- Circle.java
+     * 			        class
+     * 			          |-- Square.class
+     * 			          |-- Circle.class
+     * 		        css
+     * 		          |-- style.css
+     */
     public static Path createTmpDirStructure() throws IOException {
         Path tmpDirPath = Files.createTempDirectory(TMP_DIR_PREFIX);
         addPathToTmpDirsToDeleteFile(tmpDirPath);
