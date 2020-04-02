@@ -90,16 +90,16 @@ public class TempDirUtility {
     /**
      * Create the following temporal directory:
      *
-     *      Java_8_OCP_[numerical_suffix]
-     * 		    java
-     * 			    src
-     * 			      |-- Square.java
-     * 			      |-- Circle.java
-     * 			    class
-     * 			      |-- Square.class
-     * 			      |-- Circle.class
-     *          css
-     * 		      |-- style.css
+     *  Java_8_OCP_[numerical_suffix]
+     *      java
+     *          src
+     *            |-- Square.java
+     *            |-- Circle.java
+     *          class
+     *            |-- Square.class
+     *            |-- Circle.class
+     *      css
+     *        |-- style.css
      */
     public static Path createTmpDirStructure() throws IOException {
         Path tmpDirPath = Files.createTempDirectory(TMP_DIR_PREFIX);
