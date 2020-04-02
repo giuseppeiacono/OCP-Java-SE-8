@@ -36,7 +36,7 @@ public class TempDirUtility {
     }
 
     public static void main(String[] args) throws IOException {
-        deleteTmpDirs();
+        cleanTmpDirs();
         deleteTmpDirsToDeleteFile();
     }
 
@@ -49,7 +49,7 @@ public class TempDirUtility {
         return tmpDirsToDeletePath;
     }
 
-    private static void deleteTmpDirs() throws IOException {
+    private static void cleanTmpDirs() throws IOException {
         System.out.println("Starting to delete all temporal directories created by classes of io_nio module...");
 
         try (BufferedReader tmpDirsToDelete =
@@ -57,6 +57,7 @@ public class TempDirUtility {
             String dirToDelete;
             while( (dirToDelete = tmpDirsToDelete.readLine()) != null) {
                 deleteTmpDirRecursively(Paths.get(dirToDelete));
+                System.out.println();
             }
         }
     }
@@ -77,20 +78,28 @@ public class TempDirUtility {
     }
 
     /**
-     * Create the following temporal directory for Unix systems:
+     * Create an empty temporal directory
+     */
+    public static Path createEmptyTmpDir() throws IOException {
+        Path emptyTmpDirPath = Files.createTempDirectory(TMP_DIR_PREFIX);
+        addPathToTmpDirsToDeleteFile(emptyTmpDirPath);
+        printFileTree(emptyTmpDirPath);
+        return emptyTmpDirPath;
+    }
+
+    /**
+     * Create the following temporal directory:
      *
-     * / (root)
-     *      tmp
-     *          Java_8_OCP_[numerical_suffix]
-     * 		        java
-     * 			        src
-     * 			          |-- Square.java
-     * 			          |-- Circle.java
-     * 			        class
-     * 			          |-- Square.class
-     * 			          |-- Circle.class
-     * 		        css
-     * 		          |-- style.css
+     *      Java_8_OCP_[numerical_suffix]
+     * 		    java
+     * 			    src
+     * 			      |-- Square.java
+     * 			      |-- Circle.java
+     * 			    class
+     * 			      |-- Square.class
+     * 			      |-- Circle.class
+     *          css
+     * 		      |-- style.css
      */
     public static Path createTmpDirStructure() throws IOException {
         Path tmpDirPath = Files.createTempDirectory(TMP_DIR_PREFIX);
@@ -101,10 +110,10 @@ public class TempDirUtility {
         return tmpDirPath;
     }
 
-    private static void addPathToTmpDirsToDeleteFile(Path newTmpDirPath) throws IOException {
+    private static void addPathToTmpDirsToDeleteFile(Path tmpDirPath) throws IOException {
         try (PrintWriter tmpDirsToDelete =
                      new PrintWriter(new FileWriter(TMP_DIRS_TO_DELETE_PATH.toString(), true))) {
-            tmpDirsToDelete.println(newTmpDirPath.toString());
+            tmpDirsToDelete.println(tmpDirPath.toString());
             tmpDirsToDelete.flush();
         }
     }
