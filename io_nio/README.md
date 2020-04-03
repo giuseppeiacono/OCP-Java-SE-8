@@ -13,6 +13,8 @@
     - [File visitors](#file-visitors)
     - [``PathMatcher``](#pathmatcher)
         + [Globs](#globs)
+    - [``WatchService``](#watchservice)
+    - [Clean temporal directory utility](#clean-temporal-directory-utility)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -156,6 +158,51 @@ They are patterns to match file names. They can be used by classes like ``Direct
 | {java, angular} | Begins with one of the string in the set |
 
 You can see some examples on [``Glob``](src/nio/Glob.java).
+
+### ``WatchService``
+You can register it on a directory ``Path`` listening one or more of the following events defined into ``StandardWatchEventKinds``:
+
+|     Event     | Generated when |
+| :-----------: | :------------: |
+| ENTRY_CREATE  | path created |
+| ENTRY_DELETE  | path deleted |
+| ENTRY_MODIFY  | path modified |
+| ENTRY_CREATE + ENTRY_DELETE | path renamed |
+
+The basic flow of WatchService stays the same, regardless of what you want to do:
+ 1. Create a new ``WatchService``
+ 2. Register it on a ``Path`` listening to one or more event types
+ 3. Loop until you are no longer interested in these events (``break`` or ``return`` to stop loop)
+ 4. Get a ``WatchKey`` from the ``WatchService`` with methods ``take()`` or ``poll()``:
+    ```java
+    // file system-specific code
+    WatchService watcher = FileSystems.getDefault().newWatchService(); 
+    
+    // wait forever for an event
+    watcher.take();
+    
+    // get event if present right NOW
+    watcher.poll();                  
+    // wait up to 10 seconds for an event    
+    watcher.poll(10, TimeUnit.SECONDS);
+    // wait up to 1 minute for an event
+    watcher.poll(1, TimeUnit.MINUTES);
+    ```
+ 5. Call ``key.pollEvents`` and do something with the events
+ 6. **IMPORTANT** Call ``key.reset`` to look for more events. If you forget it, the program will notify only the first event!
+
+> DISADVANTAGE \
+> ``WatchService`` only watches the files and directories immediately beneath it
+
+The class [``WatcherServiceSamples``](src/nio/WatcherServiceSamples.java) shows a couple of ways to register a watcher:
+ * directory ``Path``
+ * recursively on each inner directory.
+
+### Clean temporal directory utility
+The example code of this module generate temporal directories and files under the temporal directory of your file system.
+
+Run [``TempDirUtility``](src/common/TempDirUtility.java) to clean your temporal directory and delete the temporal file 
+``io_nio/src/tmp_dirs_to_delete.txt`` where are stored the paths to delete.
 
 ## Exam tricks
 > **Directories MUST BE created with mkdir()** \
