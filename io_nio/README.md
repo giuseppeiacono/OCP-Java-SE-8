@@ -15,6 +15,8 @@
         + [Globs](#globs)
     - [``WatchService``](#watchservice)
     - [Clean temporal directory utility](#clean-temporal-directory-utility)
++ [Serialization](#serialization)
+    - [How inheritance affects serialization](#how-inheritance-affects-serialization)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -204,6 +206,38 @@ The example code of this module generate temporal directories and files under th
 Run [``TempDirUtility``](src/common/TempDirUtility.java) to clean your temporal directory and delete the temporal file 
 ``io_nio/src/tmp_dirs_to_delete.txt`` where are stored the paths to delete.
 
+## Serialization
+
+![alt text](readme_resources/serialization.png)
+
+Suppose that you want to serialize an object that has an object reference variable. It does not make sense to serialize its value
+because it has meaning only inside one JVM. Is there a solution?
+
+Yes, Java automatically serialize all objects referenced by the object that you want to serialize.
+
+Take into account that there are classes that can not serialized for some reason. How we can fix it?
+ 1. mark object reference variable ``transient`` to avoid serialization
+ 2. if you need to serialize these types of objects, you can use the following special methods:
+    * ``ObjectOutputStream.readObject()``
+    * ``ObjectOutputStream.writeObject()`` \
+    Remember to handle exceptions that could be throw by these methods and read serialized values in the same order you wrote them
+
+### How inheritance affects serialization
+```java
+class Animal {
+    public String name;
+    public int age;
+}
+
+class Dog extends Animal implements Serializable {
+    // Dog code
+}
+```
+The superclass ``Animal`` is not serializable. When a ``Dog`` object is deserialized, all variables inherited by superclass are
+initialized with default values by its constructor.
+> **WARNING** \
+> In the exam will be deserialized objects which inheritance tree is a mix of serializable and not-serializable classes
+
 ## Exam tricks
 > **Directories MUST BE created with mkdir()** \
 > In the exam could find invalid code like that:
@@ -232,3 +266,8 @@ Run [``TempDirUtility``](src/common/TempDirUtility.java) to clean your temporal 
 > // It throws NullPointerException at runtime
 > path.relativize(null);
 > ```
+ 
+> Serialization and deserialization
+> * ``ObjectOutputStream.readObject()`` assign the default value to ``transient`` variables \
+> * The concrete classes in the Java API are serializable
+> * Collections and arrays serialization failed if at least one element is not serializable
