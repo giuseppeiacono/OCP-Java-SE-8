@@ -1,6 +1,7 @@
 # I/O and NIO.2
 + [Overview](#overview)
 + [Java I/O fundamentals](#java-io-fundamentals)
+    - [Console](#console)
     - [I/O classes involved in the exam](#io-classes-involved-in-the-exam)
     - [Combining I/O classes](#combining-io-classes)
     - [Work with I/O files and directories](#work-with-io-files-and-directories)
@@ -29,6 +30,17 @@ This module consists of two main sections:
 
 ## Java I/O fundamentals
 Follow the classes and features included in the exam.
+
+### Console
+The class ``Console`` was added on Java 6 to have access to the console of your physical device.
+
+You can get it by ``System.console()``, but remember to check the result:
+ * the ``Console`` object is returned
+ * ``null`` is returned because your program is running in an environment that doesn't have access to a console object
+ 
+In the exam you could see only a couple of methods:
+ * ``readLine()`` that return a ``String``
+ * ``readPassword()`` that return a ``char[]`` to be immediately deleted
 
 ### I/O classes involved in the exam
 You need to understand the following classes for the exam:
@@ -101,12 +113,18 @@ For more details look at [``NIO2WorkWithPath``](src/nio/NIO2WorkWithPath.java) e
 
 ### File attributes
 For the exam you should know that the package ``java.nio.file.attribute`` provides two interfaces to work with file attributes:
- * ``BasicFileAttributes`` to read 
- * ``BasicFileAttributeView`` to update
+ * ``XXXFileAttributes`` to read 
+ * ``XXXFileAttributeView`` to update
 
 The class ``Files`` has a couple of methods that return the previous objects:
  * ``readAttributes(path, XXXFileAttributes.class)`` 
  * ``getFileAttributeView(path, XXXFileAttributeView.class)``
+ 
+File attributes are not exactly the same for every operating systems. Java offers the following interfaces to manage them:
+
+![alt text](readme_resources/file-attributes.png)
+
+> The prefix **XXX** stay for ``Basic``, ``Dos`` (for Windows) or ``Posix`` (for Unix)
  
 ### ``DirectoryStream``
 It let you iterate through a directory. Follow a couple of way to get it from ``Files``.

@@ -61,8 +61,8 @@ There are some example in [DateTimeAdjusters](src/date_and_time/DateTimeAdjuster
 
 ## Periods, Durations and Instants
 The new package ``java.time.*`` provides two classes to represent a period of time: 
- * ``Period`` represent a period of time >= 1 DAY
- * ``Duration`` represent a period of time < 1 DAY
+ * ``Period`` >= 1 DAY
+ * ``Duration`` < 1 DAY
  
 Both could be added-to or subtracted-from ``LocalDateTime`` and ``ZonedDateTime``. For instance, if you need to set a reminder 
 one week before an event you could do it:
@@ -81,7 +81,7 @@ long timeDifference = ChronoUnit.MINUTES.between(beginning, end);
 Duration durationMinutes = Duration.ofMinutes(timeDifference);
 System.out.println("Duration is " + durationMinutes);
 ```
-The output is **Duration is PT3H30M**, where PT means "period of time" and the remaining value is the difference of time of three hours and 30 minutes.
+The output is **PT3H30M**, where PT means "period of time" and the rest of the string means 3 hours and 30 minutes.
 
 ### NBA match reminders
 We talk about several features of the new ``java.time.*`` package that are very intuitive and simplify the way to deal with datetime objects. 
