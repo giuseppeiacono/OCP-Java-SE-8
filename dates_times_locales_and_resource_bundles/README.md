@@ -119,6 +119,8 @@ On the exam we will find the following methods of the ``Properties`` class:
  > void store(OutputStream out, String headerComment)
  > ```
 
+Check out the examples on [``ReadWriteProperties``](src/properties/ReadWriteProperties.java).
+
 ## Resource bundle
 Java allows to create our own class that extends ``ListResourceBundle`` in order to store key-value pairs where the value could be any object. 
 Take a look at the example into [``Locales``](src/locale/Locales.java) where the method ``printLabelsEnCaResourceBundle()`` print the content of [``Labels_en_CA.java``](src/locale/Labels_en_CA.java).
