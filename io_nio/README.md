@@ -289,3 +289,6 @@ initialized with default values by its constructor.
 > * ``ObjectOutputStream.readObject()`` assign the default value to ``transient`` variables \
 > * The concrete classes in the Java API are serializable
 > * Collections and arrays serialization failed if at least one element is not serializable
+
+> **``Path implements Iterable``** \
+> Every class that (correctly) implements the Iterable<?> interface can be used as an expression in the enhanced for loop

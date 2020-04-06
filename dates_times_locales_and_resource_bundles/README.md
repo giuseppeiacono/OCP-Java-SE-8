@@ -146,3 +146,13 @@ Take a look at the example into [``Locales``](src/locale/Locales.java) where the
 >  * Be easily localized, or translated, into different languages  
 >  * Handle multiple locales at once
 >  * Be easily modified later to support even more locales"
+
+> **Format used by ``toString()``** \
+> In the exam you will find questions like this: which will produce the following output in the console? ``2018--12-01T10:10``
+> 
+> You can answer correctly only if you know the format used by ``toString()`` of the corresponding instance printed on the console.
+> Here the official documentation links for the classes involved in the exam:
+>  * [``ZonedDateTime``](https://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html#toString--)
+>  * [``LocalDateTime``](https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html#toString--)
+>  * [``LocalDate``](https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html#toString--)
+>  * [``LocalTime``](https://docs.oracle.com/javase/8/docs/api/java/time/LocalTime.html#toString--)
