@@ -13,7 +13,7 @@ As this project is focused on the topics covered in the ``OCP Java SE 8`` exam, 
 ## Instanceof operator
 The instanceof operator **CANNOT BE USED** if there is no relationship between the object and the type compared!!!
 
-If you do it, you'll get a compilation error as shown it the example below:
+If you do it, you'll get a compilation error as shown in the example below:
 
 > ```java
 > File f = new File("myFile.txt");
