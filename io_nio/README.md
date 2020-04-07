@@ -285,7 +285,7 @@ initialized with default values by its constructor.
 > path.relativize(null);
 > ```
  
-> Serialization and deserialization
+> **Serialization and deserialization**
 > * ``ObjectOutputStream.readObject()`` assign the default value to ``transient`` variables \
 > * The concrete classes in the Java API are serializable
 > * Collections and arrays serialization failed if at least one element is not serializable
