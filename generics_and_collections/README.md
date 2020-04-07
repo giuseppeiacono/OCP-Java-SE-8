@@ -37,7 +37,7 @@ So to be truly safe, your rule of thumb should be:
  > if you override ``equals()`` , override ``hashCode()`` as well
 
 | hashCode() contract|
-| :---: | :---: |
+| ----   |
 | Provided that no information used in equals() comparisons on the object is modified, <br/> multiple invocations of ``hashCode()`` on the same object MUST return the same integer |
 | if ``x.equals(y)`` is ``true`` <br/> x and y MUST HAVE the same hashcode |
 | if ``x.equals(y)`` is ``false`` <br/> is NOT REQUIRED that x and y hashcode must be distinct |
@@ -47,7 +47,7 @@ So to be truly safe, your rule of thumb should be:
 > Make sure to know the rules of overriding to avoid the following errors:
 >   ```java
 >   class Foo {
->     // it is not a valid override because it should be public 
+>     // it is not a valid override because it should be public hashCode() contract
 >     boolean equals(Object o) { } 
 >     int hashCode() { } 
 >     String toString() { } 
