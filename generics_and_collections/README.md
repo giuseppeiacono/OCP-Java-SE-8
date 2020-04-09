@@ -2,6 +2,9 @@
 + [Overview](#overview)
 + [Override ``equals()``](#override-equals)
 + [Override ``hashCode()``](#ovverride-hashcode)
++ [Collections](#collections)
+    - [Key interfaces and classes](#key-interfaces-and-classes)
+    - [Performance details](#)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -42,6 +45,41 @@ So to be truly safe, your rule of thumb should be:
 | if ``x.equals(y)`` is ``true`` <br/> x and y MUST HAVE the same hashcode |
 | if ``x.equals(y)`` is ``false`` <br/> is NOT REQUIRED that x and y hashcode must be distinct |
 
+## Collections
+This section resumes the most important details concerning to the interfaces and classes of the ``Collections`` framework involved in the exam.
+
+### Key interfaces and classes
+Follow the interfaces and implementation classes of Collections framework which you should know for the exam and 
+that could be considered a strong base to work with Java collections.
+
+![alt text](readme_resources/collections-core-interfaces.png)
+
+![alt text](readme_resources/collections-map-classes.png)
+
+![alt text](readme_resources/collections-set-classes.png)
+
+![alt text](readme_resources/collections-list-classes.png)
+
+![alt text](readme_resources/collections-queue-deque-classes.png)
+
+### Performance details
+How to choose the best implementation class of collections framework for our purpose?
+
+ * **``LinkedList``**
+    *  fast insertion and deletion
+ * **``ArrayList``** 
+    * fast iteration
+    * you don't expect a lot of insertion and deletion
+ * **``HashSet``**
+    * no duplicates
+    * no order
+    * higher access performance depending on ``hashCode()`` implementation
+  * **``LinkedHashSet``**
+    * iterate through the elements in the order in which they were inserted
+  * **``TreeSet``**
+    * elements in ascending order, according to the natural order
+    * custom order by ``Comparator``
+
 ## Exam tricks
 > **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** \
 > Make sure to know the rules of overriding to avoid the following errors:
@@ -64,4 +102,11 @@ So to be truly safe, your rule of thumb should be:
 > appropriate/correct != legal != efficient
 > 
 > It is legal return the same hashcode for every instance, but it's terribly inefficient because it means that
-> all objects will be put in the same bucket.  
+> all objects will be put in the same bucket
+
+> **``HashSet`` and ``HashSet`` warning** \
+> These classes does not allow duplicates as dictated by ``Set`` contract. 
+> For these reason, the objects managed with these classes MUST override``hashCode()``
+
+> **Interface means interface, class means class** \
+> If you are asked to choos an interface, choose an interface, NOT a class! And vice versa...
