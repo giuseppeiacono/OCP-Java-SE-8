@@ -3,8 +3,14 @@
 + [Override ``equals()``](#override-equals)
 + [Override ``hashCode()``](#ovverride-hashcode)
 + [Collections](#collections)
-    - [Key interfaces and classes](#key-interfaces-and-classes)
-    - [Performance details](#)
+    - [Collections framework](#collections-framework)
+        * [Core interfaces](#core-interfaces)
+        * [Implementation classes](#implementation-classes)
+    - [Choose the best collections implementation class](#choose-the-best-collections-implementation-class)
+        + [``List``](#list)
+        + [``Set``](#set)
+        + [``Map``](#map)
+        + [](#)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -48,11 +54,15 @@ So to be truly safe, your rule of thumb should be:
 ## Collections
 This section resumes the most important details concerning to the interfaces and classes of the ``Collections`` framework involved in the exam.
 
-### Key interfaces and classes
+### Collections framework
 Follow the interfaces and implementation classes of Collections framework which you should know for the exam and 
 that could be considered a strong base to work with Java collections.
 
+#### Core interfaces
+
 ![alt text](readme_resources/collections-core-interfaces.png)
+
+#### Implementation classes
 
 ![alt text](readme_resources/collections-map-classes.png)
 
@@ -62,14 +72,17 @@ that could be considered a strong base to work with Java collections.
 
 ![alt text](readme_resources/collections-queue-deque-classes.png)
 
-### Performance details
+### How to choose the best implementation
 How to choose the best implementation class of collections framework for our purpose?
 
+#### List
  * **``LinkedList``**
-    *  fast insertion and deletion
+    * fast insertion and deletion
  * **``ArrayList``** 
     * fast iteration
     * you don't expect a lot of insertion and deletion
+    
+#### Set
  * **``HashSet``**
     * no duplicates
     * no order
@@ -77,8 +90,31 @@ How to choose the best implementation class of collections framework for our pur
   * **``LinkedHashSet``**
     * iterate through the elements in the order in which they were inserted
   * **``TreeSet``**
-    * elements in ascending order, according to the natural order
-    * custom order by ``Comparator``
+    * natural order (in ascending order) or custom order (by ``Comparator``)
+    
+#### Map
+ * **``HashMap``**
+    * no order
+    * no sorter
+    * allows null keys or values
+    * higher access performance depending on ``hashCode()`` implementation
+ * **``Hashtable``**
+    * synchronized
+    * does NOT allow null keys or values
+ * **``LinkedHashMap``**
+    * fast iteration
+ * **``TreeMap``**
+    * natural order (in ascending order) or custom order (by ``Comparator``)
+ 
+#### Queue
+ * **``PriorityQueue``**
+    * natural order (in ascending order) 
+    * custom order (by ``Comparator``)
+    * custom priority-in, priority-out where the order represents their RELATIVE priority
+ * **``ArrayDeque``**
+    * to implement queue or stack
+    * double-ended queue
+    * high performance
 
 ## Exam tricks
 > **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** \
