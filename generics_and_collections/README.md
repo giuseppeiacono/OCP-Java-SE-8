@@ -10,7 +10,9 @@
         + [``List``](#list)
         + [``Set``](#set)
         + [``Map``](#map)
-        + [](#)
+        + [``Queue``](#queue)
+    - [Using Collections](#using-collections)
+        + [Boxing with ``==`` and ``equlas()``](#boxing-with--and-equlas)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -115,6 +117,29 @@ How to choose the best implementation class of collections framework for our pur
     * to implement queue or stack
     * double-ended queue
     * high performance
+
+### Using Collections
+We know the most important interfaces and classes of the Collections framework and how to choose the best collection
+implementation for our purpose. Now it's time to know how to use them!
+
+#### Boxing with ``==`` and ``equlas()``
+In order to save memory, two instances of the following wrapper objects (created through boxing) will always be == when their
+primitive values are the same:
+ * Boolean
+ * Byte
+ * Character from \u0000 to \u007f (7f is 127 in decimal)
+ * Short and Integer from –128 to 127
+> **WARNING**
+>
+> Take care with Integer and Short, as shows the example below:
+> ```java
+> Integer a1 = 127;
+> Integer a2 = 127;
+> Integer b1= 128;
+> Integer b2 = 128;
+> System.out.println( a1 == a2 ); // true because the value belong to [-128, 127]
+> System.out.println( b1 == b2 ); // false based on the above
+> ```
 
 ## Exam tricks
 > **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** \
