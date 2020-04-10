@@ -13,6 +13,7 @@
         + [``Queue``](#queue)
     - [Using Collections](#using-collections)
         + [Boxing with ``==`` and ``equlas()``](#boxing-with--and-equlas)
+        + [``Comparable`` vs ``Comparator``](#comparable-vs-comparator)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -57,8 +58,8 @@ So to be truly safe, your rule of thumb should be:
 This section resumes the most important details concerning to the interfaces and classes of the ``Collections`` framework involved in the exam.
 
 ### Collections framework
-Follow the interfaces and implementation classes of Collections framework which you should know for the exam and 
-that could be considered a strong base to work with Java collections.
+Follow the interfaces and implementation classes of [the Collections framework](https://docs.oracle.com/javase/8/docs/technotes/guides/collections/index.html) 
+which you should know for the exam and that could be considered a strong base to work with Java collections.
 
 #### Core interfaces
 
@@ -141,6 +142,37 @@ primitive values are the same:
 > System.out.println( b1 == b2 ); // false based on the above
 > ```
 
+The second thing you MUST remember is that wrapper reference variable can be ``null``. 
+It means that the developer is in charge of to check it, else JVM will throws a ``NullPointerException`` at runtime. 
+
+#### ``Comparable`` vs ``Comparator``
+It's really important to understand what are these interfaces and how to use them because of many reasons.
+
+They are used to impose a total ordering on collections of objects:
+ * ``Comparable`` defines a natural order (alphabetically, number value, ...)
+ * ``Comparator`` defines a custom order based on object's properties
+    
+> **WARNING**
+>
+> Collections could be sorted if and only if the objects implements at least one of the interfaces above, as they define 
+> the total order. In the other cases, the compiler will get something like this when we try to sort the elements:
+> ```java
+> TestDVD.java:13: cannot find symbol
+> symbol : method sort(java.util.ArrayList<DVDInfo>)
+> location: class java.util.Collections
+> Collections.sort(dvdlist);
+> ```
+
+The table highlight the differences between these interfaces.
+
+| Difference | ``Comparable`` | ``Comparator`` |
+| :--------- | :------------- | :------------- |
+| Method syntax | ``int a.compareTo(b)`` | ``int compare(a, b)`` |
+| Class impact | The class must be changed accordingly | The comparator is implemented on a separated class |
+| Multiple ways to order objects | No | Yes, as much as I need |
+| Implemented by some Java API classes | Yes, for example ``String`` , wrapper classes, ``LocalDate``, ``LocalTime`` ... | No, because it was introduced to define a custom order |
+| Replaceable with Lambda | No | Yes, because it is a [functional interface](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html) |
+
 ## Exam tricks
 > **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** \
 > Make sure to know the rules of overriding to avoid the following errors:
@@ -165,9 +197,20 @@ primitive values are the same:
 > It is legal return the same hashcode for every instance, but it's terribly inefficient because it means that
 > all objects will be put in the same bucket
 
-> **``HashSet`` and ``HashSet`` warning** \
+> **``HashSet`` and ``LinkedHashSet`` warning** \
 > These classes does not allow duplicates as dictated by ``Set`` contract. 
 > For these reason, the objects managed with these classes MUST override``hashCode()``
 
 > **Interface means interface, class means class** \
 > If you are asked to choos an interface, choose an interface, NOT a class! And vice versa...
+
+> **Take care about argument type!** \
+> ``equals()`` take an argument of type ``Object``
+> ``compareTo()`` take an argument of the type you are sorting
+
+> **Diamond syntax reminder** \
+> ```java
+> ArrayList<String> stuff = new ArrayList<>() // legal from Java 7
+> 
+> List<> stuff = new ArrayList<String>(); // NOT legal
+> ```
