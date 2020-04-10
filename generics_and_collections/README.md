@@ -197,9 +197,9 @@ The table highlight the differences between these interfaces.
 > It is legal return the same hashcode for every instance, but it's terribly inefficient because it means that
 > all objects will be put in the same bucket
 
-> **``HashSet`` and ``LinkedHashSet`` warning** \
-> These classes does not allow duplicates as dictated by ``Set`` contract. 
-> For these reason, the objects managed with these classes MUST override``hashCode()``
+> **``hashCode()`` is a MUST when...** \
+> ``HashSet`` and ``LinkedHashSet``does not allow duplicates as dictated by ``Set`` contract. 
+> It means that ``equals()`` must be override to identify duplicates, so you MUST override ``hashCode()`` too
 
 > **Interface means interface, class means class** \
 > If you are asked to choos an interface, choose an interface, NOT a class! And vice versa...
