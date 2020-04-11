@@ -23,7 +23,9 @@ public class SortList {
     public static void main(String[] args) throws IOException {
         System.out.println("\n--------------- Sort list ---------------");
         sortListOfComparableObjects();
-        sortListByComparators();
+        List<RockSong> rockSongList = getRockSongListFromFile();
+        sortListByComparators(rockSongList);
+        sortListByLambda(rockSongList);
     }
 
     private static void sortListOfComparableObjects() {
@@ -43,15 +45,18 @@ public class SortList {
         System.out.println("Ordered by Arrays.sort() = " + Arrays.toString(shortArray));
     }
 
-    private static void sortListByComparators() throws IOException {
-        System.out.println("\nReading rock songs list from file...");
-        List<RockSong> rockSongList = getRockSongListFromFile();
-
-        print("Rock songs list", rockSongList);
+    private static void sortListByComparators(List<RockSong> rockSongList) throws IOException {
         Collections.sort(rockSongList, new ArtistComparator());
         print("Ordered by ArtistComparator", rockSongList);
         Collections.sort(rockSongList, new ReleasedComparator());
         print("Ordered by ReleasedComparator", rockSongList);
+    }
+
+    private static void sortListByLambda(List<RockSong> rockSongList) {
+        Collections.sort(rockSongList, (song1, song2) -> song1.getArtist().compareTo(song2.getArtist()));
+        print("Ordered by LAMBDA that replace the ArtistComparator", rockSongList);
+        Collections.sort(rockSongList, (song1, song2) -> song1.getReleased().compareTo(song2.getReleased()));
+        print("Ordered by LAMBDA that replace the ReleasedComparator", rockSongList);
     }
 
     private static void print(String msg, List<RockSong> rockSongList) {
@@ -62,6 +67,8 @@ public class SortList {
     }
 
     private static List<RockSong> getRockSongListFromFile() throws IOException {
+        System.out.println("\nReading rock songs list from file " + ROCK_SONG_LIST_RELATIVE_PATH);
+
         List<RockSong> rockSongList = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(ROCK_SONG_LIST_ABS_PATH.toString()))) {
             String line;
@@ -71,6 +78,8 @@ public class SortList {
                 rockSongList.add(rockSong);
             }
         }
+
+        print("Rock songs list", rockSongList);
         return rockSongList;
     }
 }
