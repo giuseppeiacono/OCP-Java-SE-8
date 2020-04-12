@@ -14,6 +14,12 @@
     - [Using Collections](#using-collections)
         + [Boxing with ``==`` and ``equlas()``](#boxing-with--and-equlas)
         + [``Comparable`` vs ``Comparator``](#comparable-vs-comparator)
+        + [Sorting collections and arrays](#sorting-collections-and-arrays)
+        + [Searching collections and arrays](#searching-collections-and-arrays)
+        + [Using List](#using-list)
+        + [Using Set](#using-set)
+        + [Using Map](#using-map)
+        + [](#)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -154,10 +160,10 @@ They are used to impose a total ordering on collections of objects:
     
 > **WARNING**
 >
-> Collections could be sorted if and only if the objects implements at least one of the interfaces above, as they define 
-> the total order. In the other cases, the compiler will get something like this when we try to sort the elements:
+> If you try to sort a collections of objects for which the total ordering is not defined, 
+> the compiler will get something like this:
 > ```java
-> TestDVD.java:13: cannot find symbol
+> TestCollectionSorting.java:13: cannot find symbol
 > symbol : method sort(java.util.ArrayList<DVDInfo>)
 > location: class java.util.Collections
 > Collections.sort(dvdlist);
@@ -172,6 +178,63 @@ The table highlight the differences between these interfaces.
 | Multiple ways to order objects | No | Yes, as much as I need |
 | Implemented by some Java API classes | Yes, for example ``String`` , wrapper classes, ``LocalDate``, ``LocalTime`` ... | No, because it was introduced to define a custom order |
 | Replaceable with Lambda | No | Yes, because it is a [functional interface](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html) |
+
+Look at the examples in [``SortList``](src/list/SortList.java) to understand better how work these interfaces.
+
+#### Sorting collections and arrays
+For the exam you should know that we can sort a collections in the following ways:
+```java
+Collections.sort(list)
+Collections.sort(list, comparator)
+Arrays.sort(array)
+Arrays.sort(array, comparator)
+```
+Moreover, the elements of collections/arrays MUST BE mutually comparable. Generally, objects of different types have not this characteristic.
+
+#### Searching collections and arrays
+The following rules apply:
+ * Searches are performed using the ``binarySearch()`` method that return the index of the element (SUCCESSFUL) or the insertion point (UNSUCCESSFUL) 
+ * You MUST sort the collection/array before searching, else the result is not predictable
+ * You MUST invoke ``binarySearch()`` version related to the order applied by sorting (natural order or ``Comparator``)
+
+#### Using List
+The element of a ``List`` could be examined by iterator.
+```java
+// using the generic syntax to create the Iterator
+Iterator<Dog> i = d.iterator();
+while (i.hasNext()) {
+    Dog dog = i.next(); // cast not required
+    System.out.println(dog.getName());
+}
+
+// using the classic iterator
+Iterator i = d.iterator();
+while (i.hasNext()) {
+    Dog dog = (Dog) i.next(); // cast required because we declared an iterator of objects
+    System.out.println(dog.getName());
+}
+```
+
+#### Using Set
+You can print ``HashSet`` or ``LinkedHashSet`` of different types of objects because they are not SORTED.
+
+It's not the same for ``TreeSet`` because the elements of sorted collections MUST BE mutually comparable! It produces a runtime ``ClassCastException``.
+
+#### Using Map
+Any classes that you use as a part of the keys for that map MUST OVERRIDE the ``hashCode()`` and ``equals()`` methods, 
+else the code will compile, run, but it will not retrieve objects from the map. 
+
+```java
+// 1. They are legals
+// 2. They successfully retrieve objects from a Map
+// 3. They are both terribly inefficient
+// 4. The first is a bit more efficient than the second that provides the same hashcode for any object
+public int hashCode() { return name.length(); }
+public int hashCode() { return 4; }
+```
+
+> **WARNING** \
+> If you change the value of one or more object used to calculate the hashcode, the objects related to old hashcode will not be retrieved!!!
 
 ## Exam tricks
 > **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** \
@@ -214,3 +277,6 @@ The table highlight the differences between these interfaces.
 > 
 > List<> stuff = new ArrayList<String>(); // NOT legal
 > ```
+
+> **``Arrays.asList(array)``** \
+> This method generate a List from an array. From this point, when you update one of them, the other is updated automatically!!!
