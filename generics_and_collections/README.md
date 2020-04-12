@@ -19,7 +19,10 @@
         + [Using List](#using-list)
         + [Using Set](#using-set)
         + [Using Map](#using-map)
-        + [](#)
+        + [Searching ``TreeSets`` and ``TreeMaps``](#searching-treesets-and-treemaps)
+        + [Backed collections](#backed-collections)
+        + [Priority queue](#priority-queue)
+        + [``ArrayDeque``](#arraydeque)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -235,6 +238,37 @@ public int hashCode() { return 4; }
 
 > **WARNING** \
 > If you change the value of one or more object used to calculate the hashcode, the objects related to old hashcode will not be retrieved!!!
+
+#### Searching ``TreeSets`` and ``TreeMaps``
+Probably you won't get any questions on these topics, but it's better to be ready.
+
+![alt text](readme_resources/searching-treeset-and-treemap.png)
+
+#### Backed collections
+Some of the classes in the ``java.util`` package support the concept of backed collections.
+
+Basically you can create a collection from another and each one can reflect its changes to the other. Look at the example on 
+[``BackedCollection``](src/backed_collection/BackedCollection.java) to understand better how does it work.
+
+For the exam you should remember the methods and the rules below:
+
+![alt text](readme_resources/backed-collections-methods.png)
+
+1. method invoked with end point + boolean always means IS INCLUSIVE
+2. unless specifically indicated by a boolean argument, a subset's starting point will always BE INCLUSIVE
+
+#### Priority queue
+The elements are sorted by natural order or by ``Comnparator``.
+```java
+offer(e);   // add the element to the PriorityQueue 
+peek();     // returns the highest-priority element in the queue without removing it
+poll();     // returns the highest-priority element AND removes it from the queue
+```
+
+#### ``ArrayDeque``
+This class implements both the ``Queue`` interface and the ``Deque`` (double-ended queues) interface, so there are several methods 
+with different names that do the same thing.
+
 
 ## Exam tricks
 > **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** \
