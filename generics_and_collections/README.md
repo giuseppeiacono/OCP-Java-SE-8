@@ -1,4 +1,4 @@
-# Object orientation
+# Generics and collections
 + [Overview](#overview)
 + [Override ``equals()``](#override-equals)
 + [Override ``hashCode()``](#ovverride-hashcode)
