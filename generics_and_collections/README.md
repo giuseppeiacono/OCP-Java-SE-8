@@ -23,6 +23,8 @@
         + [Backed collections](#backed-collections)
         + [Priority queue](#priority-queue)
         + [``ArrayDeque``](#arraydeque)
+        + [Key methods in ``Arrays`` and ``Collections``](#key-methods-in-arrays-and-collections)
+        + [Key methods in ``List``, ``Set`` and ``Map``](#key-methods-in-list-set-and-map)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -266,9 +268,40 @@ poll();     // returns the highest-priority element AND removes it from the queu
 ```
 
 #### ``ArrayDeque``
-This class implements both the ``Queue`` interface and the ``Deque`` (double-ended queues) interface, so there are several methods 
+This class is not synchronized and implements both the ``Queue`` interface and the ``Deque`` (double-ended queues) interface, so there are several methods 
 with different names that do the same thing.
+```java
+// add on the end
+offer(e) 
+add(e) 
 
+// add on the front
+offerFirst(e) 
+push(e) 
+addFirst(e)
+
+// returns the first element without delete it
+peek()
+
+// return and remove the first element
+poll()
+pop()
+
+// return and remove the last element
+pollLast()
+removeLast()
+```
+Depending on the method invoked to get en element from an empty deque, the result is different:
+ * ``pop()`` and ``remove()`` throws a ``java.util.NoSuchElementException``
+ * ``poll()`` return ``null``
+
+#### Key methods in ``Arrays`` and ``Collections``
+
+[!alt text](readme_resources/key-methods-arrays-collections.png)
+
+#### Key methods in ``List``, ``Set`` and ``Map``
+
+[!alt text](readme_resources/key-methods-list-set-map.png)
 
 ## Exam tricks
 > **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** \
@@ -314,3 +347,17 @@ with different names that do the same thing.
 
 > **``Arrays.asList(array)``** \
 > This method generate a List from an array. From this point, when you update one of them, the other is updated automatically!!!
+
+> **Natural ordering detail** \
+> Remember for the exam that:
+>  * spaces sort before characters 
+>  * that uppercase letters sort before lowercase characters
+> ```java
+> String[] sa = {">ff<", "> f<", ">f <", ">FF<" }; // ordered?
+> PriorityQueue<String> pq3 = new PriorityQueue<String>();
+> for(String s : sa)
+>     pq3.offer(s);
+> for(String s : sa)
+>     System.out.print(pq3.poll() + " ");
+> ```
+> The output is  > f< >FF< >f < >ff<
