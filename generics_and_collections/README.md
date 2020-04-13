@@ -297,11 +297,11 @@ Depending on the method invoked to get en element from an empty deque, the resul
 
 #### Key methods in ``Arrays`` and ``Collections``
 
-[!alt text](readme_resources/key-methods-arrays-collections.png)
+![alt text](readme_resources/key-methods-arrays-collections.png)
 
 #### Key methods in ``List``, ``Set`` and ``Map``
 
-[!alt text](readme_resources/key-methods-list-set-map.png)
+![alt text](readme_resources/key-methods-list-set-map.png)
 
 ## Exam tricks
 > **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** \
