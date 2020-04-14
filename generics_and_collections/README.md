@@ -25,6 +25,7 @@
         + [``ArrayDeque``](#arraydeque)
         + [Key methods in ``Arrays`` and ``Collections``](#key-methods-in-arrays-and-collections)
         + [Key methods in ``List``, ``Set`` and ``Map``](#key-methods-in-list-set-and-map)
++ [Generics types](#generics-types)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -308,6 +309,51 @@ Take a look at the examples on[``ArrayDequeSample``](src/deque/ArrayDequeSample.
 #### Key methods in ``List``, ``Set`` and ``Map``
 
 ![alt text](readme_resources/key-methods-list-set-map.png)
+
+## Generics types
+This section resume the basics aspects of generic types comparing the way to work with collections on pre-Java 5 and Java 5+.
+It is the best way to understand the how it works and why this topic is a bit complicated.
+
+> The exam includes questions about generic code, nongenerics code and what happen when they are mixed.
+
+First of all, we need to understand the crucial differences between generic and nongenerics collections, then we will
+be ready to learn how to mix them.
+
+**Before Java 5**
+```java
+// does not declare the type
+List list = new ArrayList();  
+
+// the collection can hold any type of object
+list.add("string");
+list.add(32);
+list.add(new TestClassToDelete());
+
+// Casting is mandatory to get the objects
+// Wrong casting implies a java.lang.ClassCastException
+String s = (String) list.get(0);
+Integer i = (Integer) list.get(1);
+TestClassToDelete t = (TestClassToDelete) list.get(2);
+```
+
+**From Java 5**
+```java
+// type-safe
+// the types in the angle brackets MUST BE the same
+List<String> stringList = new ArrayList<String>();
+
+// another legal declaration
+List<Integer> intList = new ArrayList<>();
+
+stringList.add("Mike");
+stringList.add("Philip");
+
+// there is no need to cast elements because the collection is type-safe
+String s = stringList.get(1);
+for (String s : stringList) {
+    System.out.println(s);
+}
+```
 
 ## Exam tricks
 > **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** 
