@@ -30,6 +30,7 @@ public class PriorityQueueSample {
     }
 
     private static void priorityQueueSortedByComparator(int[] intArray) {
+        // the comparator is passed as parameter to the constructor
         PriorityQueue<Integer> pq = new PriorityQueue<>(10, new InverseSorting());
         for (int i : intArray)
             pq.offer(i);

@@ -147,7 +147,8 @@ Take a look at the example into [``Locales``](src/locale/Locales.java) where the
 >  * Handle multiple locales at once
 >  * Be easily modified later to support even more locales"
 
-> **Format used by ``toString()``** \
+> **Format used by ``toString()``**
+>
 > In the exam you will find questions like this: which will produce the following output in the console? ``2018--12-01T10:10``
 > 
 > You can answer correctly only if you know the format used by ``toString()`` of the corresponding instance printed on the console.

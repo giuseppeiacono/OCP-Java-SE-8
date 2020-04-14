@@ -141,16 +141,21 @@ Java manage this case by following one simple rule:
 Look at [SuppressedExceptions.java](src/try_catch_with_resources/SuppressedExcpetions.java) to see a couple of examples.
 
 ## Exam tricks
-> **"expression" meaning** \
+> **"expression" meaning**
+>
 > Any question about assertions that refers to "expression" without specify if it is a boolean test or 
 > the value to print in the stack trace, **ALWAYS** assume that it is a boolean expression 
 
-> **"correct" meaning** \
+> **"correct" meaning**
+>
 > "correct" in the context of assertions refers to how assertions SHOULD be used rather than how they legally COULD be used
 
-> **"appropriate" != "legal"** \
->"appropriate" always refers to the way in which something is supposed to be used, according to either 
+> **"appropriate" != "legal"**
+>
+> "appropriate" always refers to the way in which something is supposed to be used, according to either 
 > the developers of the mechanism or best practices officially embraced by Oracle
 
+> **Single-catch parameter**
+>
 > Never, ever assign a new value to the single-catch parameter (classic try-catch)! \
 > It compiles, but it is not recommended by Oracle!

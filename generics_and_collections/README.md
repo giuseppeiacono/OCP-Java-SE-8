@@ -122,10 +122,12 @@ How to choose the best implementation class of collections framework for our pur
  
 #### Queue
  * **``PriorityQueue``**
+    * implements ``Queue`` interface
     * natural order (in ascending order) 
     * custom order (by ``Comparator``)
     * custom priority-in, priority-out where the order represents their RELATIVE priority
  * **``ArrayDeque``**
+    * implements both ``Queue`` and ``Deque`` interfaces
     * to implement queue or stack
     * double-ended queue
     * high performance
@@ -304,7 +306,8 @@ Depending on the method invoked to get en element from an empty deque, the resul
 ![alt text](readme_resources/key-methods-list-set-map.png)
 
 ## Exam tricks
-> **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** \
+> **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** 
+>
 > Make sure to know the rules of overriding to avoid the following errors:
 >   ```java
 >   class Foo {
@@ -321,34 +324,40 @@ Depending on the method invoked to get en element from an empty deque, the resul
 >   }
 >   ```
 
-> **hashcode tricky exam questions** \
+> **Hashcode tricky exam questions**
+>
 > appropriate/correct != legal != efficient
 > 
 > It is legal return the same hashcode for every instance, but it's terribly inefficient because it means that
 > all objects will be put in the same bucket
 
-> **``hashCode()`` is a MUST when...** \
+> **``hashCode()`` is a MUST when...**
+>
 > ``HashSet`` and ``LinkedHashSet``does not allow duplicates as dictated by ``Set`` contract. 
 > It means that ``equals()`` must be override to identify duplicates, so you MUST override ``hashCode()`` too
 
-> **Interface means interface, class means class** \
+> **Interface means interface, class means class**
+>
 > If you are asked to choos an interface, choose an interface, NOT a class! And vice versa...
 
-> **Take care about argument type!** \
+> **Take care about argument type!**
+>
 > ``equals()`` take an argument of type ``Object``
 > ``compareTo()`` take an argument of the type you are sorting
 
-> **Diamond syntax reminder** \
+> **Diamond syntax reminder**
 > ```java
 > ArrayList<String> stuff = new ArrayList<>() // legal from Java 7
 > 
 > List<> stuff = new ArrayList<String>(); // NOT legal
 > ```
 
-> **``Arrays.asList(array)``** \
+> **``Arrays.asList(array)``**
+>
 > This method generate a List from an array. From this point, when you update one of them, the other is updated automatically!!!
 
-> **Natural ordering detail** \
+> **Natural ordering detail**
+>
 > Remember for the exam that:
 >  * spaces sort before characters 
 >  * that uppercase letters sort before lowercase characters

@@ -257,7 +257,8 @@ initialized with default values by its constructor.
 > In the exam will be deserialized objects which inheritance tree is a mix of serializable and not-serializable classes
 
 ## Exam tricks
-> **Directories MUST BE created with mkdir()** \
+> **Directories MUST BE created with mkdir()**
+>
 > In the exam could find invalid code like that:
 > ```java
 > File directory = new File("mydir");
@@ -266,10 +267,12 @@ initialized with default values by its constructor.
 > ``` 
 > The last statement throws an ``IOException`` because the directory was not created explicitly on the disk by ``mkdir()`` method
 
-> **``flush()``** \
+> **``flush()``**
+>
 > This method is required only for ``Writer`` classes. In the exam you could find it on ``Reader`` classes for you to fail
 
-> **``File`` and ``Files`` --- ``Path`` and ``Paths``** \
+> **``File`` and ``Files`` --- ``Path`` and ``Paths``**
+>
 > Pay attention on the exam with these classes because their names are very similar, while they behave differently
 
 > **``resolve()``**
@@ -290,5 +293,6 @@ initialized with default values by its constructor.
 > * The concrete classes in the Java API are serializable
 > * Collections and arrays serialization failed if at least one element is not serializable
 
-> **``Path implements Iterable``** \
+> **``Path implements Iterable``**
+>
 > Every class that (correctly) implements the Iterable<?> interface can be used as an expression in the enhanced for loop
