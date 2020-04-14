@@ -269,6 +269,8 @@ peek();     // returns the highest-priority element in the queue without removin
 poll();     // returns the highest-priority element AND removes it from the queue
 ```
 
+Take a look at the examples on[``PriorityQueueSample``](src/queue/PriorityQueueSample.java)
+
 #### ``ArrayDeque``
 This class is not synchronized and implements both the ``Queue`` interface and the ``Deque`` (double-ended queues) interface, so there are several methods 
 with different names that do the same thing.
@@ -296,6 +298,8 @@ removeLast()
 Depending on the method invoked to get en element from an empty deque, the result is different:
  * ``pop()`` and ``remove()`` throws a ``java.util.NoSuchElementException``
  * ``poll()`` return ``null``
+ 
+Take a look at the examples on[``ArrayDequeSample``](src/deque/ArrayDequeSample.java)
 
 #### Key methods in ``Arrays`` and ``Collections``
 
