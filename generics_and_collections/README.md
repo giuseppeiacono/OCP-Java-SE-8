@@ -26,6 +26,7 @@
         + [Key methods in ``Arrays`` and ``Collections``](#key-methods-in-arrays-and-collections)
         + [Key methods in ``List``, ``Set`` and ``Map``](#key-methods-in-list-set-and-map)
 + [Generics types](#generics-types)
+    - [Mixing generic and nongeneric collections](#mixing-generic-and-nongeneric-collections)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -311,12 +312,12 @@ Take a look at the examples on[``ArrayDequeSample``](src/deque/ArrayDequeSample.
 ![alt text](readme_resources/key-methods-list-set-map.png)
 
 ## Generics types
-This section resume the basics aspects of generic types comparing the way to work with collections on pre-Java 5 and Java 5+.
-It is the best way to understand the how it works and why this topic is a bit complicated.
+This section resume the basics aspects of generic types comparing the way how collections work before and after Java 5.
+It is necessary to understand deeply this complicated topic.
 
-> The exam includes questions about generic code, nongenerics code and what happen when they are mixed.
+> The exam includes questions about generic/nongenerics collections and what happen when they are mixed.
 
-First of all, we need to understand the crucial differences between generic and nongenerics collections, then we will
+First of all, we need to understand the crucial differences between generic and nongeneric collections, then we will
 be ready to learn how to mix them.
 
 **Before Java 5**
@@ -324,13 +325,13 @@ be ready to learn how to mix them.
 // does not declare the type
 List list = new ArrayList();  
 
-// the collection can hold any type of object
+// the collection can hold ANY type of object
 list.add("string");
 list.add(32);
 list.add(new TestClassToDelete());
 
-// Casting is mandatory to get the objects
-// Wrong casting implies a java.lang.ClassCastException
+// casting is mandatory to get the objects
+// wrong casting implies a java.lang.ClassCastException
 String s = (String) list.get(0);
 Integer i = (Integer) list.get(1);
 TestClassToDelete t = (TestClassToDelete) list.get(2);
@@ -345,6 +346,8 @@ List<String> stringList = new ArrayList<String>();
 // another legal declaration
 List<Integer> intList = new ArrayList<>();
 
+// the collection can hold ONLY String
+// wrong type generate COMPILE error
 stringList.add("Mike");
 stringList.add("Philip");
 
@@ -354,6 +357,13 @@ for (String s : stringList) {
     System.out.println(s);
 }
 ```
+
+### Mixing generic and nongeneric collections
+Through several examples we will comprehend the hard task of Oracle's engineers to maintain backward compatibility with
+nongeneric collections and how work the solution proposed by them.
+
+ 1. The example [``ModifyNonGenericList``](src/generic/ModifyNonGenericList.java) shows a type-safe collections 
+    modified by method which expects a nongeneric list.
 
 ## Exam tricks
 > **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** 
@@ -420,3 +430,10 @@ for (String s : stringList) {
 >     System.out.print(pq3.poll() + " ");
 > ```
 > The output is  > f< >FF< >f < >ff<
+
+> **Generic warning is a SUCCESSFUL compile**
+>
+> For the purposes of the exam, unless the question includes an answer that mentions warnings, even if you know 
+> the compilation will produce warnings, that is still a successful compile!
+> 
+> In other words, if you see code that you know will compile with warnings, you must NOT choose "Compilation fails" as an answer.
