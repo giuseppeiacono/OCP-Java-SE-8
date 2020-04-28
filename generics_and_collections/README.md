@@ -248,7 +248,15 @@ public int hashCode() { return 4; }
 #### Searching ``TreeSets`` and ``TreeMaps``
 Probably you won't get any questions on these topics, but it's better to be ready.
 
-![alt text](readme_resources/searching-treeset-and-treemap.png)
+Follow the most important methods of ``NavigableSet``:
+
+![alt text](readme_resources/searching-TreeSet.png)
+
+The ``NavigableMap`` has the same methods of the previous interface, but with subtle differences:
+ * methods names have a different suffix to remind that regard to maps
+ * the parameter of methods is not en element of the set, but the key of the map
+ 
+![alt text](readme_resources/searching-TreeMap.png) 
 
 #### Backed collections
 Some of the classes in the ``java.util`` package support the concept of backed collections.
