@@ -407,7 +407,7 @@ nongeneric collections and how work the solution proposed by them.
     Parent[] myArray = new Child[3];
     ```
  
- 5. The example [``ArraysVsCollectionsGenericMethods``](src/generic/ArraysVsCollectionsGenericMethods.java) 
+ 5. The example [``ArraysVsGenericCollections``](src/generic/ArraysVsGenericCollections.java) 
     the compiler allows you to take the risk to add an incorrect subtype object to an array, while it generates errors
     for collections which do the same thing 
 
@@ -451,10 +451,31 @@ Remember a couple of important things:
     public class AnimalHolder<T extends Animal> { }
     ```
 
-For more details take a look at the examples on [CustomGenericClasses]()
+For more details take a look at the examples on [CustomGenericClasses](src/generic/CustomGenericClasses.java)
 
 ### Create generic methods
+You can create a generic method beneath a non-generic class as follow:
+```java
+public <T> void makeArrayList(T t) {
+    List<T> list = new ArrayList<T>();
+    list.add(t);
+}
 
+public <T extends Number> void makeArrayList(T t) {
+    List<Integer> list = new ArrayList<Integer>();
+    list.add(t);
+}
+```
+
+In the exam you could find something like this:
+```java 
+public class X { public <X> X(X x) { } }
+```
+It works fine!
+The constructor name ``X``, the type declaration <X> and the constructor argument identifier has no relationships between them.
+ 
+That's why the compiler is able to parse this and treat each of the different uses of X independently. 
+So there is no naming conflict between class names, type parameter placeholders and variable identifiers.
 
 ## Exam tricks
 > **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** 
@@ -544,3 +565,13 @@ For more details take a look at the examples on [CustomGenericClasses]()
 > List<?>
 > List<? extends Object>
 > ```
+
+> **Illegal use of wildcard ?**
+>
+> A common error is to use the wildcard ``?`` instead of ``T`` when we create generic classes or methods
+> ```java
+> public class NumberHolder<? extends Number> { }
+> public class NumberHolder<?> { ? aNum; }
+> public <?> void a(? l) { }
+> ```
+> If you replace the <?> with a legal identifier, you're good

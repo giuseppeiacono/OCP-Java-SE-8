@@ -3,7 +3,7 @@ package generic;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArraysVsCollectionsGenericMethods {
+public class ArraysVsGenericCollections {
 
     public static void main(String[] args) {
         // compiler allows to pass a Dog array to method which expects a supertype Animal array
