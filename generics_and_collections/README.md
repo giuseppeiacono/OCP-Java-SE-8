@@ -27,6 +27,9 @@
         + [Key methods in ``List``, ``Set`` and ``Map``](#key-methods-in-list-set-and-map)
 + [Generics types](#generics-types)
     - [Mixing generic and nongeneric collections](#mixing-generic-and-nongeneric-collections)
+    - [Generics syntax](#generics-syntax)
+    - [Create generic classes](#create-generic-classes)
+    - [Create generic methods](#create-generic-methods)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -408,6 +411,51 @@ nongeneric collections and how work the solution proposed by them.
     the compiler allows you to take the risk to add an incorrect subtype object to an array, while it generates errors
     for collections which do the same thing 
 
+### Generics syntax
+Mixing properly the wildcard ``?`` wiht one of the keywords ``extends`` and ``super`` we can tell to the compiler several things:
+
+| Syntax | Type admited by compiler | You can add elements |
+| :----: | :----------------------: | :------------------: |
+| ``List<?>`` | Any type | NO |
+| ``List<? extends Animal>`` | any instance of Animal or its subtypes | NO |
+| ``List<? super Dog>`` | any instance of Dog or its supertypes | Yes |
+
+Based on the previous table, the declarations above are legal:
+```java
+List<?> list = new ArrayList<Dog>();
+List<? extends Animal> aList = new ArrayList<Dog>();
+List<? super Dog> bList = new ArrayList<Animal>();
+List<? super Dog> bList = new ArrayList<Object>();
+```
+
+Some illegal use of the syntax just for the exam:
+```java
+// Dog is not supertype of Animal
+List<? super Animal> dList = new ArrayList<Dog>();
+// Integer is not subtype of Dog
+List<? extends Dog> cList = new ArrayList<Integer>();
+// the wildcard ``?`` could not be used on the actual type of the collection 
+List<?> foo = new ArrayList<? extends Animal>();
+```
+
+### Create generic classes
+Remember a couple of important things:
+  * use the generic type like ``T`` and not the wildcard ``?``
+  * the class declaration could have one or more generic types:
+    ```java
+    public class RentalGeneric<T> { }
+    public class UseTwo<T, U> { }   
+    ```
+  * you can define the types admitted by your own generic class using the syntax mentioned on [Generics syntax](#generics-syntax)
+    ```java
+    public class AnimalHolder<T extends Animal> { }
+    ```
+
+For more details take a look at the examples on [CustomGenericClasses]()
+
+### Create generic methods
+
+
 ## Exam tricks
 > **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** 
 >
@@ -487,4 +535,12 @@ nongeneric collections and how work the solution proposed by them.
 > ``Note: YourClass.java uses unchecked or unsafe operations.`` \
 > ``Note: Recompile with -Xlint:unchecked for details.``
 >
-> In the exam, these type of warnings never ever mean that your answer is ``Compilation fails``   
+> In the exam, these type of warnings never ever mean that your answer is ``Compilation fails``
+
+> **Equivalent generic declarations**
+>
+> ```java
+> // they mean any list of type Object or its subtypes, but you cannot add elemnts
+> List<?>
+> List<? extends Object>
+> ```

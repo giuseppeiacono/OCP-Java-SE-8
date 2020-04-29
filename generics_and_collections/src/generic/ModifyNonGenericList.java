@@ -11,7 +11,7 @@ public class ModifyNonGenericList {
         myList.add(6);
 
         modifyList(myList);
-        System.out.println(myList); // [4, 6, 2, it is not an Integer]
+        System.out.println(myList); // [4, 6, 2, "it is not an Integer"]
 
         // COMPILER ERROR!!!
         // the element with index 3 is a String,
