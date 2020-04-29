@@ -256,7 +256,9 @@ The ``NavigableMap`` has the same methods of the previous interface, but with su
  * methods names have a different suffix to remind that regard to maps
  * the parameter of methods is not en element of the set, but the key of the map
  
-![alt text](readme_resources/searching-TreeMap.png) 
+![alt text](readme_resources/searching-TreeMap.png)
+
+All mentioned methods are used in [NavigableSetMap](src/navigable_set_map/NavigableSetMap.java).
 
 #### Backed collections
 Some of the classes in the ``java.util`` package support the concept of backed collections.
@@ -370,8 +372,41 @@ for (String s : stringList) {
 Through several examples we will comprehend the hard task of Oracle's engineers to maintain backward compatibility with
 nongeneric collections and how work the solution proposed by them.
 
- 1. The example [``ModifyNonGenericList``](src/generic/ModifyNonGenericList.java) shows a type-safe collections 
-    modified by method which expects a nongeneric list.
+ 1. **Type erasure**: the process through the compiler does all of its verifications on your generic code and then strips the
+    type information out of the class bytecode. At runtime, generics looks exactly like
+    the pregeneric version of collections. \
+    It means that the bytecode of the following lists is exactly the same:
+    ```java
+    List<Integer> myList = new ArrayList<Integer>();
+    List myList = new ArrayList();
+    ```
+    
+ 2. Burn this difference into your mind:
+    * Generics provide ONLY compile protection to avoid to add objects of the wrong type to the collection.
+      It is due to the type erasure process mentioned above 
+    * Arrays provide BOTH compile-time and runtime protection  
+ 
+ 3. The example [``ModifyNonGenericList``](src/generic/ModifyNonGenericList.java) shows warnings and errors that could be
+    generated when a type-safe collection is modified by method which expects a nongeneric list.
+    
+ 4. Polymorphism works for arrays, but not for collections due to the type erasure process.
+    ```java
+    // They are fine because declared and actual type match
+    List<JButton> bList = new ArrayList<JButton>();
+    List<Object> oList = new ArrayList<Object>();
+    List<Integer> iList = new ArrayList<Integer>();
+    
+    // Polymorphism does not work for generics
+    List<Object> myList = new ArrayList<JButton>();
+    List<Number> numbers = new ArrayList<Integer>();
+    
+    // Polymorphism works fine for arrays
+    Parent[] myArray = new Child[3];
+    ```
+ 
+ 5. The example [``ArraysVsCollectionsGenericMethods``](src/generic/ArraysVsCollectionsGenericMethods.java) 
+    the compiler allows you to take the risk to add an incorrect subtype object to an array, while it generates errors
+    for collections which do the same thing 
 
 ## Exam tricks
 > **Valid override of ``equals()``, ``hashCode()`` and ``toString()``** 
@@ -445,3 +480,11 @@ nongeneric collections and how work the solution proposed by them.
 > the compilation will produce warnings, that is still a successful compile!
 > 
 > In other words, if you see code that you know will compile with warnings, you must NOT choose "Compilation fails" as an answer.
+
+> **Compiler warning caused by generics**
+>
+> If we add a String to an Integer list the compiler generate a warning like this: \
+> ``Note: YourClass.java uses unchecked or unsafe operations.`` \
+> ``Note: Recompile with -Xlint:unchecked for details.``
+>
+> In the exam, these type of warnings never ever mean that your answer is ``Compilation fails``   
