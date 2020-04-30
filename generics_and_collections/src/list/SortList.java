@@ -9,10 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class SortList {
 
@@ -21,7 +18,6 @@ public class SortList {
     private static final Path ROCK_SONG_LIST_ABS_PATH = PROJECT_PATH.resolve(ROCK_SONG_LIST_RELATIVE_PATH);
 
     public static void main(String[] args) throws IOException {
-        System.out.println("\n--------------- Sort list ---------------");
         sortListOfComparableObjects();
         List<RockSong> rockSongList = getRockSongListFromFile();
         sortListByComparators(rockSongList);
@@ -29,6 +25,7 @@ public class SortList {
     }
 
     private static void sortListOfComparableObjects() {
+        System.out.println("\n--------------- Sort list of Short ---------------");
         short a = -29;
         short b = 44;
         short c = 180;
@@ -36,37 +33,23 @@ public class SortList {
         Short[] shortArray = new Short[shortList.size()];
         shortArray = shortList.toArray(shortArray);
 
-        System.out.println("\nShort list = " + shortList);
+        System.out.println("Short list = " + shortList);
         Collections.sort(shortList);
-        System.out.println("ordered by Collections.sort() = " + shortList);
+        System.out.println("Natural order = " + shortList);
+        Comparator<Object> reverseComparator = Collections.reverseOrder();
+        Collections.sort(shortList, reverseComparator);
+        System.out.println("Reverse order = " + shortList);
 
-        System.out.println("\nShort array = " + Arrays.toString(shortArray));
+        System.out.println("\n--------------- Sort array of Short ---------------");
+        System.out.println("Short array = " + Arrays.toString(shortArray));
         Arrays.sort(shortArray);
-        System.out.println("Ordered by Arrays.sort() = " + Arrays.toString(shortArray));
-    }
-
-    private static void sortListByComparators(List<RockSong> rockSongList) throws IOException {
-        Collections.sort(rockSongList, new ArtistComparator());
-        print("Ordered by ArtistComparator", rockSongList);
-        Collections.sort(rockSongList, new ReleasedComparator());
-        print("Ordered by ReleasedComparator", rockSongList);
-    }
-
-    private static void sortListByLambda(List<RockSong> rockSongList) {
-        Collections.sort(rockSongList, (song1, song2) -> song1.getArtist().compareTo(song2.getArtist()));
-        print("Ordered by LAMBDA that replace the ArtistComparator", rockSongList);
-        Collections.sort(rockSongList, (song1, song2) -> song1.getReleased().compareTo(song2.getReleased()));
-        print("Ordered by LAMBDA that replace the ReleasedComparator", rockSongList);
-    }
-
-    private static void print(String msg, List<RockSong> rockSongList) {
-        System.out.println(msg);
-        for (RockSong rockSong : rockSongList) {
-            System.out.println("\u25E6 " + rockSong);
-        }
+        System.out.println("Natural order = " + Arrays.toString(shortArray));
+        Arrays.sort(shortArray, reverseComparator);
+        System.out.println("Reverse order = " + shortArray);
     }
 
     private static List<RockSong> getRockSongListFromFile() throws IOException {
+        System.out.println("\n--------------- Sort list of RockSong ---------------");
         System.out.println("\nReading rock songs list from file " + ROCK_SONG_LIST_RELATIVE_PATH);
 
         List<RockSong> rockSongList = new ArrayList<>();
@@ -81,5 +64,26 @@ public class SortList {
 
         print("Rock songs list", rockSongList);
         return rockSongList;
+    }
+
+    private static void print(String msg, List<RockSong> rockSongList) {
+        System.out.println(msg);
+        for (RockSong rockSong : rockSongList) {
+            System.out.println("\u25E6 " + rockSong);
+        }
+    }
+
+    private static void sortListByComparators(List<RockSong> rockSongList) throws IOException {
+        Collections.sort(rockSongList, new ArtistComparator());
+        print("\nOrdered by ArtistComparator", rockSongList);
+        Collections.sort(rockSongList, new ReleasedComparator());
+        print("Ordered by ReleasedComparator", rockSongList);
+    }
+
+    private static void sortListByLambda(List<RockSong> rockSongList) {
+        Collections.sort(rockSongList, (song1, song2) -> song1.getArtist().compareTo(song2.getArtist()));
+        print("\nOrdered by LAMBDA that replace the ArtistComparator", rockSongList);
+        Collections.sort(rockSongList, (song1, song2) -> song1.getReleased().compareTo(song2.getReleased()));
+        print("Ordered by LAMBDA that replace the ReleasedComparator", rockSongList);
     }
 }

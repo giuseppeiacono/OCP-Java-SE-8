@@ -14,7 +14,7 @@
     - [Using Collections](#using-collections)
         + [Boxing with ``==`` and ``equlas()``](#boxing-with--and-equlas)
         + [``Comparable`` vs ``Comparator``](#comparable-vs-comparator)
-        + [Sorting collections and arrays](#sorting-collections-and-arrays)
+        + [Sorting arrays and ``List``](#sorting-arrays-and-list)
         + [Searching collections and arrays](#searching-collections-and-arrays)
         + [Using List](#using-list)
         + [Using Set](#using-set)
@@ -95,21 +95,22 @@ which you should know for the exam and that could be considered a strong base to
 How to choose the best implementation class of collections framework for our purpose?
 
 #### List
+All implementations are ordered by index.
  * **``LinkedList``**
-    * fast insertion and deletion
+    * fast insertion and deletion (e.g. stacks and queues)
  * **``ArrayList``** 
     * fast iteration
     * you don't expect a lot of insertion and deletion
     
 #### Set
+All implementations does not accept duplicates.
  * **``HashSet``**
-    * no duplicates
     * no order
     * higher access performance depending on ``hashCode()`` implementation
   * **``LinkedHashSet``**
-    * iterate through the elements in the order in which they were inserted
+    * iterate by insertion order
   * **``TreeSet``**
-    * natural order (in ascending order) or custom order (by ``Comparator``)
+    * iterate in natural order (in ascending order) or custom order (by ``Comparator``)
     
 #### Map
  * **``HashMap``**
@@ -193,15 +194,18 @@ The table highlight the differences between these interfaces.
 
 Look at the examples in [``SortList``](src/list/SortList.java) to understand better how work these interfaces.
 
-#### Sorting collections and arrays
-For the exam you should know that we can sort a collections in the following ways:
+#### Sorting arrays and ``List``
+For the exam you should know that we can sort arrays and ``List`` as below, but it works fine IF AND ONLY IF
+the objects are mutually comparable. Generally, objects of different types have not this characteristic.
 ```java
 Collections.sort(list)
 Collections.sort(list, comparator)
 Arrays.sort(array)
 Arrays.sort(array, comparator)
 ```
-Moreover, the elements of collections/arrays MUST BE mutually comparable. Generally, objects of different types have not this characteristic.
+In addition:
+ * To be sorted and searched, an array's or List 's elements must be comparable
+ * To be searched, an array or List must first be sorted
 
 #### Searching collections and arrays
 The following rules apply:
