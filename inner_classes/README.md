@@ -1,6 +1,6 @@
 # Inner classes
 + [Overview](#overview)
-+ [Inner classes](#inner-classes)
++ [Types of inner classes](#types-of-inner-classes)
     - [Nested classes](#nested-classes)
     - [Method-local inner classes](#method-local-inner-classes)
     - [Anonymous classes](#anonymous-classes)
@@ -12,15 +12,13 @@
 This module is focused on the different types of inner classes and those cases where we can replace
 the specific type of inner class with LAMBDA.
 
-The static classes are treated in this module.
+The static classes are not inner classes, but they are included in this chapter of the official Oracle book.
 
-## Inner classes
+## Types of inner classes
 In this section we will discuss the three types of inner classes:
  * Nested classes 
  * Method-local inner classes
  * Anonymous classes
- 
-The static classes are not inner classes, but they are included in this chapter of the official Oracle book.
 
 ### Nested classes
  * It is declared at the same level of instance variables
@@ -31,7 +29,7 @@ The static classes are not inner classes, but they are included in this chapter 
     * ``this`` references the nested class
     * ``MyOuter.this`` references the outer class
 
-Look at [InnerNestedClass](src/InnerClasses.java).
+Look at [InnerNestedClass](src/InnerNestedClass.java).
    
 ### Method-local inner classes
  * It is declared beneath an INSTANCE or STATIC method. It MUST BE instantiated in the method where it is declared
