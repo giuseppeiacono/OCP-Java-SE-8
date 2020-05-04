@@ -67,6 +67,10 @@ marked static is just one more static member of the outer class. Apply the same 
 Look at [StaticClass](src/StaticClass.java).
 
 ## Exam tricks
+> **Exam scenarios**
+>
+> Look at the folder [src/exam_scenarios](src/exam_scenarios) to see some tricky exam scenario related to the inner classes
+
 > **Anonymous classes semicolon**
 >
 > ```java
