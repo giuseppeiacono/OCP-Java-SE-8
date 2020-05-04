@@ -1,11 +1,11 @@
-public class InnerNestedClass {
+public class NestedInnerClass {
 
     private int outerInt = 7;
     private String outerString = "outer";
 
     public static void main(String[] args) {
         System.out.println("\nAccess the nested class from the OUTER class");
-        InnerNestedClass outerClass = new InnerNestedClass();
+        NestedInnerClass outerClass = new NestedInnerClass();
         outerClass.makeNestedClass();
 
         System.out.println("Access the nested class from an EXTERNAL class");
@@ -26,7 +26,7 @@ public class InnerNestedClass {
 
         public void seeOuter() {
             System.out.println("\u25E6 outerInt = " + outerInt);
-            System.out.println("\u25E6 outerString = " + InnerNestedClass.this.outerString);
+            System.out.println("\u25E6 outerString = " + NestedInnerClass.this.outerString);
             System.out.println("\u25E6 nestedInt = " + nestedInt);
             System.out.println("\u25E6 nestedString = " + this.nestedString);
         }
@@ -36,8 +36,8 @@ public class InnerNestedClass {
 class AnotherClass {
 
     void accessNestedClass() {
-        InnerNestedClass innerClasses = new InnerNestedClass();
-        InnerNestedClass.NestedClass nestedClass = innerClasses.new NestedClass();
+        NestedInnerClass innerClasses = new NestedInnerClass();
+        NestedInnerClass.NestedClass nestedClass = innerClasses.new NestedClass();
         nestedClass.seeOuter();
     }
 }

@@ -29,7 +29,7 @@ In this section we will discuss the three types of inner classes:
     * ``this`` references the nested class
     * ``MyOuter.this`` references the outer class
 
-Look at [InnerNestedClass](src/InnerNestedClass.java).
+Look at [NestedInnerClass](src/NestedInnerClass.java).
    
 ### Method-local inner classes
  * It is declared beneath an INSTANCE or STATIC method. It MUST BE instantiated in the method where it is declared
@@ -41,35 +41,49 @@ Look at [InnerNestedClass](src/InnerNestedClass.java).
 Look at [MethodLocalInnerClass](src/MethodLocalInnerClass.java).
 
 ### Anonymous classes
- * The anonymous classes are called in this way because they have no name. 
- * They are declared at the same level of instance variables 
- * They consists of two types:
-    * **Subclass**: override methods of the superclass
-    * **Implementors**: implements the methods of an interface
-    
+The anonymous classes are called in this way because they have no name. We distinguish two types of anonymous classes depending on where they are declared.
+
+Those ones declared at the same level of instance variables:
+ * **Subclass**: override methods of the superclass
+ * **Implementors**: implements the methods of an interface
+
 Both types are instantiated with ``new``. We know that Java does not allow to instantiate an interface, but in this case 
 it create for us an instance of a class that implements the interface.
 
-Look at [AnonymousInnerClasses](src/AnonymousInnerClasses.java) for more details.
+The other type of anonymous class is defined where you least you expect to find a class: right inside the argument of a method!
+
+Look at [AnonymousInnerClasses](src/AnonymousInnerClasses.java) and [AnonymousArgumentDefinedInnerClasses](src/AnonymousArgumentDefinedInnerClasses.java) for more details.
 
 ## Lambda as inner classes
 We know that lambda can replace a functional interface. It means that every inner class regarding functional interfaces
-can be substituted with the corresponding lambda expressions.
+can be substituted with the corresponding lambda expressions. An example is a comparator.
 
 Look at [LambdaAsInnerClass](src/LambdaAsInnerClass.java).
 
 ## Static classes
+A static class does not exist in Java and it is not an inner class. Basically, Oracle engineers decided that a class
+marked static is just one more static member of the outer class. Apply the same rules of static class members.
 
+Look at [StaticClass](src/StaticClass.java).
 
 ## Exam tricks
 > **Anonymous classes semicolon**
 >
 > ```java
+> // plain anonymous classes syntax MUST END with };
 > Popcorn p = new Popcorn() {
 >     public void pop() {
 >         System.out.println("anonymous popcorn");
 >     }
-> }   // COMPILER ERROR: missing semicolon
+> }   // COMPILER ERROR: ';' expected
+> 
+> // argument-defined anonymous classes MUST END with });  
+> anonymousClass.playSport(new Sport() {
+>     @Override
+>     public void play() {
+>         System.out.println("playing sport...");
+>     }
+> });
 > ```
 
 > **Method-local inner class**
