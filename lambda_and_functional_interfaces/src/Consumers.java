@@ -20,7 +20,7 @@ public class Consumers {
         Consumer<Friend> displayName = f -> System.out.println("name = " + f.getName());
         friendList.forEach(displayName);
 
-        System.out.println("\nWe obtain the same result replacing the parameter of andThen() method with the corresponding LAMBDA expression...");
+        System.out.println("\nWe obtain the same result replacing the consumer with the corresponding LAMBDA expression...");
         friendList.forEach(f -> System.out.println("name = " + f.getName()));
     }
 

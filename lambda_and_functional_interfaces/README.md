@@ -2,6 +2,13 @@
 + [Overview](#overview)
 + [Lambda expression](#lambda-expression)
 + [Functional interfaces](#functional-interfaces)
+    - [Java core funtional interfaces](#java-core-funtional-interfaces)
+        + [Working with ``Supplier``](#working-with-supplier)
+        + [Working with ``Consumer``](#working-with-consumer)
+        + [Working with ``Predicate``](#working-with-predicate)
+        + [Working with ``Function``](#working-with-function)
+    - [Operators](#operators)
++ [Method references](#method-references)
 
 ## Overview
 In this module we dive into lambda details and we learn how to use some important functional interfaces of Java.
@@ -50,3 +57,128 @@ DogQuerier dqWithCats = d -> {
 ```
 
 ## Functional interfaces
+We can recognize a functional interface in two ways:
+ 1. It has ONLY one abstract method (no default, no static)
+    > **WARNING**: inherited abstract methods don't count
+ 2. It is marked by ``@FunctionalInterface`` annotation. It is useful because we get a compiler error if we try to add 
+    a abstract method to an existing functional interface
+    
+Seeing these interfaces in use and using them yourself will help make them seem less abstract and more useful.    
+One good way to see functional interfaces in use is to look at the Oracle API documentation for one of the interfaces 
+and click on "USE" in the top navigation bar. This shows you how that functional interface is used in the rest of the JDK.
+
+You can create your own functional interface from Java core interfaces.
+
+### Java core funtional interfaces
+For the exam and the real life, we don't need to remember all 43 Java core functional interfaces of the ``java.util.function`` package.
+It is enough to know that each of them belong to one of the four categories below and that there are some variations of them:
+
+![alt text](readme_resources/core-functional-interfaces.png)
+
+### Working with ``Supplier``
+The abstract method of this core functional interface is:
+```java
+// no parameters
+// return an Object
+T get();
+```
+Normally a supplier is passed in to methods as an argument.
+
+Look at [Suppliers](src/Suppliers.java) to see a real use of suppliers.
+
+### Working with ``Consumer``
+``Consumer`` is the opposite of ``Supplier``.
+
+The abstract method of this core functional interface is:
+```java
+// one or more parameter
+// do not return anything
+void accept(T t);
+```
+One of the most commons use of consumers is as parameter of ``forEach()``, the method of ``Iterable`` interface. Consumer can change the field of iterated objects
+
+Furthermore, ``Consumer`` interface provides the default method ``andThen()`` to chain several consumers executed sequentially.
+
+Look at [Consumers](src/Consumers.java) for more example.
+
+### Working with ``Predicate``
+The abstract method of this core functional interface is:
+```java
+// one or more parameters
+// return the result of the predicate applied to the argument t
+boolean test(T t);
+```
+It could be useful when we want to filter a collection based on a boolean condition.
+
+This interface define other non-abstract methods:
+```java
+// STATIC
+Predicate.isEqual()   // tests if two arguments are equal according to the equals() method of Object class
+
+// DEFAULT
+or()        // represents a short-circuiting logical OR
+and()       // represents a short-circuiting logical AND
+negate()    // the logical negation of this predicate
+```
+Look at [Predicates](src/Predicates.java) for more details.
+
+### Working with ``Function``
+The abstract method of this core functional interface is:
+```java
+// one or more parameters
+// return an object. The argument and the returned type has different name 
+// to indicate they could be the same or different
+R apply(T t);
+```
+
+This interface define other non-abstract methods:
+```java
+// STATIC
+Function.identity()   // return the input argument
+
+// DEFAULT
+andThen()   // execute functions in sequence
+compose()   // execute functions in the reverse order
+```
+When we should use the identity function? 
+Imagine a scenario where you have defined a method that takes a ``Function`` as an argument that changes a value
+in a data structure. But in some cases, you don't want that value to change. 
+In those cases, pass the identity ``Function`` as an easy "do nothing" operation.
+
+Look at [Functions](src/Functions.java) for more details.
+
+### Operators
+All the operators are, in fact, slightly modified versions of other functional interfaces.
+
+For the exam you should only be familiar with ``UnaryOperator`` that extends the ``Function`` interface,
+so its functional method is also ``apply()``, but the argument type and the returned type must be the same.
+
+Follow an example:
+```java
+UnaryOperator<Double> log2 = v -> Math.log(v) / Math.log(2);
+System.out.println(log2.apply(8.0));
+```
+
+## Method references
+We know that lambda is a shorthand way of writing an instance of a class that implements a functional interface.
+Well, the method references is shorthand way of writing a lambda.
+```java
+public class MethodRefs {
+    
+    public static void main(String[] args) {
+        List<String> chocolates = Arrays.asList("white", "milk", "dark");
+        chocolates.forEach( c -> System.out.println(c) );   // print with lambda
+        chocolates.forEach(System.out::println);            // print with a method reference
+        chocolates.forEach(MethodRefs::printTreeStatic);    // print with our own static method reference
+    }
+    
+    public static void printTreeStatic(String t) {
+        System.out.println("Tree name: " + t);
+    }
+}
+```
+There are four types of method references:
+ 1. static
+ 2. instance
+ 3. arbitrary object
+ 4. constructor
