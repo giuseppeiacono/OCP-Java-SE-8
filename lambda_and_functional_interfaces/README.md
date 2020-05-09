@@ -3,11 +3,11 @@
 + [Lambda expression](#lambda-expression)
 + [Functional interfaces](#functional-interfaces)
     - [Java core funtional interfaces](#java-core-funtional-interfaces)
-        + [Working with ``Supplier``](#working-with-supplier)
-        + [Working with ``Consumer``](#working-with-consumer)
-        + [Working with ``Predicate``](#working-with-predicate)
-        + [Working with ``Function``](#working-with-function)
-    - [Operators](#operators)
+    - [Working with ``Supplier``](#working-with-supplier)
+    - [Working with ``Consumer``](#working-with-consumer)
+    - [Working with ``Predicate``](#working-with-predicate)
+    - [Working with ``Function``](#working-with-function)
+        + [Operators](#operators)
 + [Method references](#method-references)
 
 ## Overview
@@ -69,6 +69,8 @@ and click on "USE" in the top navigation bar. This shows you how that functional
 
 You can create your own functional interface from Java core interfaces.
 
+Beyond Java core functional interfaces, we will see in the exam ``Comparator``, ``Comparable`` and ``Runnable``.
+
 ### Java core funtional interfaces
 For the exam and the real life, we don't need to remember all 43 Java core functional interfaces of the ``java.util.function`` package.
 It is enough to know that each of them belong to one of the four categories below and that there are some variations of them:
@@ -97,7 +99,11 @@ void accept(T t);
 ```
 One of the most commons use of consumers is as parameter of ``forEach()``, the method of ``Iterable`` interface. Consumer can change the field of iterated objects
 
-Furthermore, ``Consumer`` interface provides the default method ``andThen()`` to chain several consumers executed sequentially.
+This interface define other non-abstract methods:
+```java
+// DEFAULT
+andThen( Consumer<? super T> after )  // chain several consumers executed sequentially
+```
 
 Look at [Consumers](src/Consumers.java) for more example.
 
@@ -113,12 +119,12 @@ It could be useful when we want to filter a collection based on a boolean condit
 This interface define other non-abstract methods:
 ```java
 // STATIC
-Predicate.isEqual()   // tests if two arguments are equal according to the equals() method of Object class
+Predicate.isEqual(Object o)   // tests if two arguments are equal according to the equals() method of the Object class
 
 // DEFAULT
-or()        // represents a short-circuiting logical OR
-and()       // represents a short-circuiting logical AND
-negate()    // the logical negation of this predicate
+negate()                                // the logical negation of this predicate
+or( Predicate<? super T> other )        // represents a short-circuiting logical OR
+and( Predicate<? super T> other )       // represents a short-circuiting logical AND
 ```
 Look at [Predicates](src/Predicates.java) for more details.
 
@@ -137,8 +143,8 @@ This interface define other non-abstract methods:
 Function.identity()   // return the input argument
 
 // DEFAULT
-andThen()   // execute functions in sequence
-compose()   // execute functions in the reverse order
+andThen( Function<? super R,? extends V> after )    // execute functions in sequence
+compose( Function<? super V,? extends T> before )   // execute functions in the reverse order
 ```
 When we should use the identity function? 
 Imagine a scenario where you have defined a method that takes a ``Function`` as an argument that changes a value
@@ -147,17 +153,21 @@ In those cases, pass the identity ``Function`` as an easy "do nothing" operation
 
 Look at [Functions](src/Functions.java) for more details.
 
-### Operators
+#### Operators
 All the operators are, in fact, slightly modified versions of other functional interfaces.
 
 For the exam you should only be familiar with ``UnaryOperator`` that extends the ``Function`` interface,
-so its functional method is also ``apply()``, but the argument type and the returned type must be the same.
+so its functional method is also ``apply()``, but the argument type and the returned type MUST BE the same.
 
 Follow an example:
 ```java
+// it specify only one type!
 UnaryOperator<Double> log2 = v -> Math.log(v) / Math.log(2);
 System.out.println(log2.apply(8.0));
 ```
+It is used as parameter of ``replaceAll()``, for instance.
+
+Look at [Functions](src/Functions.java) for more details.
 
 ## Method references
 We know that lambda is a shorthand way of writing an instance of a class that implements a functional interface.

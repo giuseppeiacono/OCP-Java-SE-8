@@ -3,13 +3,16 @@ import java.util.TreeMap;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 public class Functions {
 
     public static void main(String[] args) {
         functionWithOneArgument();
         functionWithTwoArguments();
-        passFunctionsToMethodAsArgument();
+        passFunctionToMethodAsArgument();
+        chainMultipleFunctions();
+        unaryOperator();
     }
 
     private static void functionWithOneArgument() {
@@ -34,7 +37,7 @@ public class Functions {
         System.out.println( concatTwoStrings.apply("Kate", "McLyon") );
     }
 
-    private static void passFunctionsToMethodAsArgument() {
+    private static void passFunctionToMethodAsArgument() {
         System.out.println("\n-------------------- Passing function to method as an argument --------------------");
         Map<String, String> aprilWinner = new TreeMap<>() {{
             put("April 2017", "Bob");
@@ -61,5 +64,20 @@ public class Functions {
         aprilWinner.forEach(printMapEntry);
     }
 
+    private static void chainMultipleFunctions() {
+        System.out.println("\n-------------------- Chaining multiple functions --------------------");
+        Function<String, String> concatString = s -> s += "-suffix";
+        Function<String, String> concatInt = s -> s += "-45";
+        String s = "mike";
+        System.out.println("The starting string is " + s);
+        System.out.println("After functions were executed in sequence the string is " + concatString.andThen(concatInt).apply(s));
+    }
 
+    private static void unaryOperator() {
+        System.out.println("\n-------------------- UnaryOperator --------------------");
+        UnaryOperator<String> toLowerCase = s -> s.toLowerCase();
+        String s = "PHILIP";
+        System.out.println("The starting string is " + s);
+        System.out.println("The result of UnaryOperator toLowerCase is " + toLowerCase.apply(s));
+    }
 }
