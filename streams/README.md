@@ -2,6 +2,9 @@
 + [Overview](#overview)
 + [What is a stream](#what-is-a-stream)
     - [Map-filter-reduce](#map-filter-reduce)
+    - [Optionals](#optionals)
+    - [Searching](#serching)
+    - [Sorting](#sorting)
 + [Exam tricks](#exam-tricks)
 
 
@@ -32,8 +35,12 @@ Follow the methods of ``Stream`` class for the exam:
 
 | Method | Return |
 | :----- | :----: |
-| ``filter ( Predicate<? super T> predicate )`` | ``Stream<T>`` |
+| ``findAny()`` | ``Optional<T>`` |
+| ``findFirst()`` | ``Optional<T>`` |
+| ``max( Comparator<? super T> comparator )`` | ``Optional<T>`` |
+| ``min( Comparator<? super T> comparator )`` | ``Optional<T>`` |
 | ``reduce ( BinaryOperator<T> accumulator )`` | ``Optional<T>`` |
+| ``filter ( Predicate<? super T> predicate )`` | ``Stream<T>`` |
 | ``reduce ( T identity, BinaryOperator<T> accumulator )`` | ``T ``|
 | ``count()`` | ``long`` |
 
@@ -50,19 +57,20 @@ Follow the methods and classes involved in the exam:
  
 | Interface | Method | Return |
 | :-------- | :----- | :----: |
+| ``IntStream`` | ``reduce ( IntBinaryOperator op )`` | ``OptionalInt`` |
+| ``DoubleStream`` | ``reduce( DoubleBinaryOperator op )`` | ``OptionalDouble`` |
+| ``LongStream`` | ``reduce ( LongBinaryOperator op )`` | ``OptionalLong`` |
+| ``DoubleStream`` <br/> ``IntStream`` <br/> ``LongStream`` | ``average()`` | ``OptionalDouble`` |
+| ``DoubleStream`` <br/> ``IntStream`` <br/> ``LongStream`` | ``max()`` <br/> ``min()`` | ``OptionalDouble`` <br/> ``OptionalInt`` <br/> ``OptionalLong`` |
+| ``DoubleStream`` <br/> ``IntStream`` <br/> ``LongStream`` | ``findAny()`` <br/> ``findFirst()`` | ``OptionalDouble`` <br/> ``OptionalInt`` <br/> ``OptionalLong`` |
 | ``IntStream`` | ``filter ( IntPredicate predicate )`` | ``IntStream`` |
 | ``DoubleStream`` | ``filter ( DoublePredicate predicate )`` | ``DoubleStream`` |
 | ``LongStream`` | ``filter ( LongPredicate predicate )`` | ``LongStream`` |
-| ``IntStream`` | ``reduce ( IntBinaryOperator op )`` | ``OptionalInt`` |
 | ``IntStream`` | ``reduce ( int identity, IntBinaryOperator op )`` | ``int`` |
-| ``DoubleStream`` | ``reduce( DoubleBinaryOperator op )`` | ``OptionalDouble`` |
 | ``DoubleStream`` | ``reduce( double identity, DoubleBinaryOperator op )`` | ``double`` |
-| ``LongStream`` | ``reduce ( LongBinaryOperator op )`` | ``OptionalLong`` |
 | ``LongStream`` | ``reduce ( long identity, LongBinaryOperator op )`` | ``long`` |
-| ``DoubleStream``, <br/> ``IntStream``, <br/> ``LongStream`` | ``count()`` | ``long`` |
-| ``DoubleStream``, <br/> ``IntStream``, <br/> ``LongStream`` | ``sum()`` | ``double, int, long`` |
-| ``DoubleStream``, <br/> ``IntStream``, <br/> ``LongStream`` | ``average()`` | ``OptionalDouble`` |
-| ``DoubleStream``, <br/> ``IntStream``, <br/> ``LongStream`` | ``max()`` <br/> ``min()`` | ``OptionalDouble`` <br/> ``OptionalInt`` <br/> ``OptionalLong`` |
+| ``DoubleStream`` <br/> ``IntStream`` <br/> ``LongStream`` | ``count()`` | ``long`` |
+| ``DoubleStream`` <br/> ``IntStream`` <br/> ``LongStream`` | ``sum()`` | ``double, int, long`` |
 
 ### Map-filter-reduce
 We can process streams in three steps:
@@ -74,10 +82,67 @@ We can process streams in three steps:
 > **Think of reductions as accumulators**: they accumulate values from the
 >  stream so they can compute one value
  
-In addition to the reduce operation offered by Java API, you can write your own reduction using ``reduce()`` method.
+In addition to the reduce operation offered by Java API, you can write your own reduction using ``reduce()`` method
+IF AND ONLY IF the operation is associative:
+> (A op B) op C = A op (B op C)
+>
+> sum() is ASSOCIATIVE \
+> average() is NOT ASSOCIATIVE
  
 Look at the samples into [MapFilterReduceMethods](src/MapFilterReduceMethods.java) for more details.
+
+### Optionals
+We told above that some streams operations returns optional values. But what is it?
+It's a container that may or may not contain a value.
+
+Follow the methods of optionals that you will see in the exam:
+
+| Class | Method | Return |
+| :---- | :----- | :----: |
+| ``Optional`` | ``empty()`` | ``Optional<T>`` |
+| ``Optional`` | ``get()`` | ``T`` |
+| ``Optional`` | ``ifPresent ( Consumer<? super T> consumer )`` | ``void`` |
+| ``Optional`` | ``isPresent()`` | ``boolean`` |
+| ``Optional`` | ``of()`` | ``Optional<T>`` |
+| ``Optional`` | ``ofNullable()`` | ``Optional<T>`` |
+| ``Optional`` | ``orElse()`` | ``T`` |
+| ``OptionalInt`` <br/> ``OptionalDouble`` <br/> ``OptionalLong`` | Each has similar methods to the above methods that return primitive optionals or primitives for each type | ``int`` <br/> ``double`` <br/> ``long`` |
+
+### Searching
+The methods below are used to search elements in the stream:
+```java
+// determine whether a match exists or not
+allMatch()
+anyMatch()
+noneMatch()
+
+// return an object, but it does not depend on the order the elements were processed
+findFirst()
+findAny()
+```
+
+All searching methods:
+ * are TERMINAL operations: they return a single value
+ * are short-circuiting operations: as soon as the result is determined, then the operation stops
+ * can be parallelized
  
+Some example is available in [SearchingStream](src/SearchingStream.java)
+
+### Sorting
+The ``Stream`` interface provides a method to sort elements:
+```java
+// sort stream by natural order
+sorted()
+
+// sort stream by custom order
+sorted( Comparator<? super T> comparator )
+
+// remove stream's duplicates
+distinct()
+```
+
+Some example is available in [SortingStream](src/SortingStream.java)
+
 ## Exam tricks
 > **Stream of Wrapper class != stream of primitives**
 >
@@ -93,3 +158,26 @@ Look at the samples into [MapFilterReduceMethods](src/MapFilterReduceMethods.jav
 > DoubleStream
 > LongStream
 > ```
+
+> **Get value from an optional**
+>
+> ``Optional<T>``    : ``get()`` \
+> ``OptionalInt``    : ``getAsInt()`` \
+> ``OptionalDouble`` : ``getAsDouble()`` \
+> ``OptionalLong``   : ``getAsLong()``
+
+> **All searching methods are short-circuiting**
+>
+> ```java
+> List<String> strings = Arrays.asList("mike", "philiph", "jefferson");
+>  
+> Optional<String> name = strings.stream()
+>             .filter(s -> s.length() > 5)
+>             .peek(s -> System.out.println("peek() = " + s))
+>             .findAny();
+>
+> name.ifPresent(s -> System.out.println("searching result = " + s));
+> ```
+> if you're asked on the exam what output you'll see with a peek() you could answer:
+>  1. **ERROR** : shows all the elements of the stream
+>  2. **CORRECT** : shows the first element that match the filter because all searching methods of the streams, like ``findAny()``, are short-circuiting
