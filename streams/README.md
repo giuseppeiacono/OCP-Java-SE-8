@@ -15,9 +15,13 @@ lambda and functional interfaces.
 Take into account that:
  * streams are LAZY: you MUST define the TERMINAL operation to start the execution, else nothing happen!
  * streams can be used only one time, else ``IllegalStateException`` is thrown!
- * stream PIPELINES are very efficient when you work with a large amount of data. They could be parallelized in some cases to get more efficiency
+ * stream PIPELINES are very efficient when you work with a large amount of data. Some streams could be parallelized to get more efficiency
  * each INTERMEDIATE operation return a stream
  
+Stream pipelines are so good because Java optimize the execution of multiple operations as we can see in the example below:
+![alt text](readme_resources/stream-pipeline-execution-flow.png)
+
+
 You can create streams of both objects and primitive values. For the exam you MUST BE able to recognize each type and
 their methods.
 
@@ -30,7 +34,7 @@ Follow the methods of ``Stream`` class for the exam:
 | :----- | :----: |
 | ``filter ( Predicate<? super T> predicate )`` | ``Stream<T>`` |
 | ``reduce ( BinaryOperator<T> accumulator )`` | ``Optional<T>`` |
-| ``reduce ( T identity, BinaryOperator<T> Accumulator )`` | ``T ``|
+| ``reduce ( T identity, BinaryOperator<T> accumulator )`` | ``T ``|
 | ``count()`` | ``long`` |
 
 **Stream of primitive values** \
@@ -66,6 +70,11 @@ We can process streams in three steps:
          the integer field of each object with the corresponding square
  2. **Filter**: apply one or more filters to the collection
  3. **Reduce**: invoke the TERMINAL operation that return a value or an OPTIONAL value
+ 
+> **Think of reductions as accumulators**: they accumulate values from the
+>  stream so they can compute one value
+ 
+In addition to the reduce operation offered by Java API, you can write your own reduction using ``reduce()`` method.
  
 Look at the samples into [MapFilterReduceMethods](src/MapFilterReduceMethods.java) for more details.
  
