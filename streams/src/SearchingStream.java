@@ -15,37 +15,37 @@ public class SearchingStream {
     }
 
     private static void searchingStreamOfObjects() {
-        System.out.println("\n----------- Methods to sort streams of objects -----------");
+        System.out.println("\n----------- Searching streams of objects -----------");
         List<String> cities = Arrays.asList("Rome", "Milan", "Seville", "RAGUSA");
         System.out.println("cities = " + cities);
 
         boolean allMatchNameLength = cities.stream()
                 .allMatch(c -> c.length() > 3);
-        System.out.println("\nThe name of all cities is > 3 : " + ANSI_BLUE + allMatchNameLength + ANSI_RESET);
+        System.out.println("\u25E6 all cities names length are > 3 : " + ANSI_BLUE + allMatchNameLength + ANSI_RESET);
 
         boolean anyUpperCaseCityName = cities.stream()
                 .anyMatch(c -> c.equals(c.toUpperCase()));
-        System.out.println("At least one of the city names is uppercase : " + ANSI_BLUE + anyUpperCaseCityName + ANSI_RESET);
+        System.out.println("\u25E6 at least one of the city names is uppercase : " + ANSI_BLUE + anyUpperCaseCityName + ANSI_RESET);
 
         boolean noneCityNameStartsWithA = cities.stream()
-                .noneMatch(c -> c.startsWith("A"));
-        System.out.println("None of the city names start with A : " + ANSI_BLUE + noneCityNameStartsWithA + ANSI_RESET);
+                .noneMatch(c -> c.startsWith("R"));
+        System.out.println("\u25E6 none of the city names start with R : " + ANSI_BLUE + noneCityNameStartsWithA + ANSI_RESET);
 
         Optional<String> firstLowerCasecityName = cities.stream()
                 .filter(c -> c.equals(c.toLowerCase()))
                 .findFirst();
         String cityName = firstLowerCasecityName.orElse("NO MATCH");
-        System.out.println("The first lowercase city name found is " + ANSI_BLUE + cityName + ANSI_RESET);
+        System.out.println("\u25E6 the first lowercase city name found is " + ANSI_BLUE + cityName + ANSI_RESET);
 
         Optional<String> anyCityNameThatLengthMatchs = cities.stream()
                 .filter(c -> c.length() > 4)
                 .findAny();
         cityName = anyCityNameThatLengthMatchs.orElse("NO MATCH");
-        System.out.println("Any city name with length > 4 is " + ANSI_BLUE + cityName + ANSI_RESET);
+        System.out.println("\u25E6 any city name with length > 4 is " + ANSI_BLUE + cityName + ANSI_RESET);
     }
 
     private static void searchingStreamOfPrimitivesValues() {
-        System.out.println("\n----------- Methods to sort streams of objects -----------");
+        System.out.println("\n----------- Searching streams of primitives values -----------");
         searchingIntYears();
         searchingDoublePrices();
     }

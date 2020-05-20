@@ -129,7 +129,7 @@ All searching methods:
 Some example is available in [SearchingStream](src/SearchingStream.java)
 
 ### Sorting
-The ``Stream`` interface provides a method to sort elements:
+The ``Stream`` interface provides some methods to sort elements:
 ```java
 // sort stream by natural order
 sorted()
