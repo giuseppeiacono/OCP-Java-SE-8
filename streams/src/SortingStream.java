@@ -31,8 +31,14 @@ public class SortingStream {
     private static void sortStreamOfObjectsByComparator() {
         System.out.println("\n----------- Sorting stream of objects by Comparator -----------");
         Person.print(PERSONS);
-        Comparator<Person> byName = (p1, p2) -> p1.getName().compareTo(p2.getName());
-        Comparator<Person> byAge = (p1, p2) -> compare(p1.getAge(), p2.getAge());
+
+        // comparators defined by lambda expression
+//        Comparator<Person> byName = (p1, p2) -> p1.getName().compareTo(p2.getName());
+//        Comparator<Person> byAge = (p1, p2) -> compare(p1.getAge(), p2.getAge());
+
+        // comparators defined by instance method reference, equivalent to the comparators above
+        Comparator<Person> byName = Comparator.comparing(p -> p.getName());
+        Comparator<Person> byAge = Comparator.comparing(p -> p.getAge());
 
         System.out.println("\nSORTED persons by name");
         PERSONS.stream()
