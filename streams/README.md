@@ -1,10 +1,13 @@
 # Streams
 + [Overview](#overview)
 + [What is a stream](#what-is-a-stream)
+    - [Stream of objects](#stream-of-objects)
+    - [Stream of primitives values](#stream-of-primitive-values)
     - [Map-filter-reduce](#map-filter-reduce)
-    - [Optionals](#optionals)
-    - [Searching](#serching)
-    - [Sorting](#sorting)
++ [Optionals](#optionals)
++ [Searching](#serching)
++ [Sorting](#sorting)
++ [Collecting values from stream](#collecting-values-from-stream)
 + [Exam tricks](#exam-tricks)
 
 
@@ -28,7 +31,7 @@ Stream pipelines are so good because Java optimize the execution of multiple ope
 You can create streams of both objects and primitive values. For the exam you MUST BE able to recognize each type and
 their methods.
 
-**Stream of objects** \
+### Stream of objects
 The class [StreamOfObjects](src/StreamOfObjects.java) shows the ways to get stream of objects from several data structure.
 
 Follow the methods of ``Stream`` class for the exam:
@@ -43,8 +46,11 @@ Follow the methods of ``Stream`` class for the exam:
 | ``filter ( Predicate<? super T> predicate )`` | ``Stream<T>`` |
 | ``reduce ( T identity, BinaryOperator<T> accumulator )`` | ``T ``|
 | ``count()`` | ``long`` |
+| ``sorted()`` | ``Stream<T>`` |
+| ``sorted( Comparator<? super T> comparator )`` | ``Stream<T>`` |
+| ``distinct()`` | ``Stream<T>`` |
 
-**Stream of primitive values** \
+### Stream of primitive values
 The class [StreamOfPrimitives](src/StreamOfPrimitives.java) shows how to get a stream of integer, double or long primitives values.
 
 It's really important to understand that they have their own little world. It means:
@@ -71,6 +77,8 @@ Follow the methods and classes involved in the exam:
 | ``LongStream`` | ``reduce ( long identity, LongBinaryOperator op )`` | ``long`` |
 | ``DoubleStream`` <br/> ``IntStream`` <br/> ``LongStream`` | ``count()`` | ``long`` |
 | ``DoubleStream`` <br/> ``IntStream`` <br/> ``LongStream`` | ``sum()`` | ``double, int, long`` |
+| ``DoubleStream`` <br/> ``IntStream`` <br/> ``LongStream`` | ``sorted()`` | ``DoubleStream`` <br/> ``IntStream`` <br/> ``LongStream`` |
+| ``DoubleStream`` <br/> ``IntStream`` <br/> ``LongStream`` | ``distinct()`` | ``DoubleStream`` <br/> ``IntStream`` <br/> ``LongStream`` |
 
 ### Map-filter-reduce
 We can process streams in three steps:
@@ -91,7 +99,7 @@ IF AND ONLY IF the operation is associative:
  
 Look at the samples into [MapFilterReduceMethods](src/MapFilterReduceMethods.java) for more details.
 
-### Optionals
+## Optionals
 We told above that some streams operations returns optional values. But what is it?
 It's a container that may or may not contain a value.
 
@@ -108,7 +116,7 @@ Follow the methods of optionals that you will see in the exam:
 | ``Optional`` | ``orElse()`` | ``T`` |
 | ``OptionalInt`` <br/> ``OptionalDouble`` <br/> ``OptionalLong`` | Each has similar methods to the above methods that return primitive optionals or primitives for each type | ``int`` <br/> ``double`` <br/> ``long`` |
 
-### Searching
+## Searching
 The methods below are used to search elements in the stream:
 ```java
 // determine whether a match exists or not
@@ -128,7 +136,7 @@ All searching methods:
  
 Some example is available in [SearchingStream](src/SearchingStream.java)
 
-### Sorting
+## Sorting
 The ``Stream`` interface provides some methods to sort elements:
 ```java
 // sort stream by natural order
@@ -142,6 +150,39 @@ distinct()
 ```
 
 Some example is available in [SortingStream](src/SortingStream.java)
+
+## Collecting values from stream
+You should never, ever try to modify the source of a stream from within the stream pipeline because Java does not guarantee 
+the result is correct. \
+In order to do that, Java introduced the reduction operation ``collect()``.
+
+It's important to understand the difference between:
+ * ``Collector``: the interface that specify how to reduce the stream
+ * ``Collectors`` : the helper class with static methods that returns several types of ``Collector``
+
+As you collect, you can:
+ 1. Collect items into a data structure like ``List`` or ``ArrayList``
+ 
+    ![alt_text](readme_resources/collect-to-data-structure.png)
+ 
+ 2. Group items by ``Function``. Moreover, you can apply other useful collectors to the groups of items.
+ 
+    ![alt text](readme_resources/grouping-by-function.png)
+ 
+ 3. Partitioning by ``Predicate``
+ 
+    ![alt text](readme_resources/partitioning-by-predicate.png)
+ 
+ 4. Map values into other values using a ``Function``
+    
+    ![alt text](readme_resources/mapping-by-function.png)
+ 
+ 5. Other handy collectors are:
+    - ``Collectors.counting()`` : counts elements being collected
+    - ``Collectors.joining()`` : concatenate stream elements into a ``String`` by order in which they are processed
+    - ``Collectors.maxBy()`` : reduce the stream to the maximum of the elements
+    - ``Collectors.minBy()`` : reduce the stream to the minimum of the elements
+  
 
 ## Exam tricks
 > **Stream of Wrapper class != stream of primitives**
