@@ -152,16 +152,17 @@ distinct()
 Some example is available in [SortingStream](src/SortingStream.java)
 
 ## Collecting values from stream
-You should never, ever try to modify the source of a stream from within the stream pipeline because Java does not guarantee 
-the result is correct. \
-In order to do that, Java introduced the reduction operation ``collect()``.
+> **WARNING**
+>
+> You should never, ever try to modify the source of a stream from within the stream pipeline because Java 
+> does not guarantee the result is correct!!!
 
-It's important to understand the difference between:
+Java introduced the reduction operation ``collect()`` to allow you to do that, but first of all it's important to understand the difference between:
  * ``Collector``: the interface that specify how to reduce the stream
  * ``Collectors`` : the helper class with static methods that returns several types of ``Collector``
 
 As you collect, you can:
- 1. Collect items into a data structure like ``List`` or ``ArrayList``
+ 1. Collect items into several data structures.
  
     ![alt_text](readme_resources/collect-to-data-structure.png)
  
