@@ -183,6 +183,7 @@ As you collect, you can:
     - ``Collectors.maxBy()`` : reduce the stream to the maximum of the elements
     - ``Collectors.minBy()`` : reduce the stream to the minimum of the elements
   
+Look at [CollectStreamValues](src/CollectStreamValues.java) to understand how ``collect()` works.
 
 ## Exam tricks
 > **Stream of Wrapper class != stream of primitives**

@@ -1,8 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
-import static java.lang.Integer.compare;
 
 public class SortingStream {
 
@@ -38,7 +37,7 @@ public class SortingStream {
 
         // comparators defined by instance method reference, equivalent to the comparators above
         Comparator<Person> byName = Comparator.comparing(p -> p.getName());
-        Comparator<Person> byAge = Comparator.comparing(p -> p.getAge());
+        Comparator<Person> byAge = Comparator.comparing(Person::getAge);
 
         System.out.println("\nSORTED persons by name");
         PERSONS.stream()
@@ -56,7 +55,9 @@ public class SortingStream {
         double[] prices = new double[]{44.5, 65.0, 12.3, 4.1};
         System.out.println("prices = " + Arrays.toString(prices));
         System.out.println("SORTED prices");
-        Arrays.stream(prices).sorted().forEach(p -> System.out.println("\u25E6 " + p));
+        Arrays.stream(prices)
+                .sorted()   // it is not overloaded for the streams of primitives values
+                .forEach(p -> System.out.println("\u25E6 " + p));
     }
 
     private static void sortStreamRemovingDuplicates() {
