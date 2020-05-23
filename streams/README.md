@@ -8,6 +8,8 @@
 + [Searching](#serching)
 + [Sorting](#sorting)
 + [Collecting values from stream](#collecting-values-from-stream)
++ [Streams of streams](#streams-of-streams)
++ [Generating streams](#generating-streams)
 + [Exam tricks](#exam-tricks)
 
 
@@ -185,6 +187,37 @@ As you collect, you can:
     - ``Collectors.minBy()`` : reduce the stream to the minimum of the elements
   
 Look at [CollectStreamValues](src/CollectStreamValues.java) to understand how ``collect()` works.
+
+## Streams of streams
+You must be careful when you stream a complex data structure. It could include something that need to be streamed.
+
+Look at the example below to understand better what we are talking about:
+```java
+// read the file java.txt that consists of several words. We are looking for the occurrences of "Java" word 
+Stream<String> input = Files.lines(Paths.get("java.txt"));
+Stream<String[]> inputStream = input.map(line -> line.split(" "));
+
+// the method map() is not enough because we want a UNIQUE stream, while it returns a stream of streams
+Stream<Stream<String>> ss = inputStream.map(array -> Arrays.stream(array));
+
+// flatMap() join the streams into one big flat stream
+// Think of taking a two-dimensional array and flattening it to a one-dimensional array, like this:
+// [ [ 1, 2 ], [ 3, 4 ] ]  ----->  [ 1, 2, 3, 4 ]
+Stream<String> ss = inputStream.flatMap(array -> Arrays.stream(array));
+ss.forEach(System.out::println);
+```
+Look at the sample [StreamOfStreams](src/StreamOfStreams.java)
+
+## Generating streams
+We could generate a stream combining the method ``Stream.iterate()`` or the method ``Stream.generate()`` with one of the following short-circuit operation:
+ * ``limit(long maxSize)``
+ * ``findFirst()``
+ * ``findAny()``
+ * ``anyMatch()``
+ 
+If you want to generate numbers, the primitive streams provide the methods ``range()`` and ``rangeClosed()``
+
+Look at the samples on [GenerateStreams](src/GenerateStreams.java).
 
 ## Exam tricks
 > **Stream of Wrapper class != stream of primitives**
