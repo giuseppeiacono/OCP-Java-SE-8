@@ -54,7 +54,10 @@ public class CollectStreamValues {
                         .collect(
                                 Collectors.groupingBy(
                                         Person::getAge,
-                                        Collectors.mapping(Person::getName, Collectors.toList())
+                                        Collectors.mapping(
+                                                Person::getName,
+                                                Collectors.toList()
+                                        )
                                 )
                         );
         System.out.println("People grouped by age = " + getFormattedMap(peopleByAge));
