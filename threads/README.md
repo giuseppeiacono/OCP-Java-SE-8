@@ -3,6 +3,8 @@
 + [Defining threads](#defining-threads)
 + [Instantiating threads](#instantiating-threads)
 + [Starting threads](#starting-threads)
++ [Thread states and transistions](#thread-states-and-transistions)
++ [Sleep threads](#starting-threads)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -96,10 +98,21 @@ public final void notify()
 public final void notifyAll()
 ```
 
+Some example of how to define, instantiate and start a thread is on [DefineInstantiateStartThreads](src/DefineInstantiateStartThreads.java).
+
 ## Thread states and transistions
 ![alt text](readme_resources/thread-states.png)
 
+## Sleep threads
+The static method ``Thread.sleep()`` could be invoked in the thread code to sleep it at least for the period of time
+specified as parameter (milliseconds). We said AT LEAST because when the thread wake up its state is changed to RUNNABLE.
+We don't know how much time it need to be run by scheduler!
 
+> **WARNING**
+>
+> One thread could not send another thread to sleep 
+
+Look at the sample on [SleepThread](src/SleepThread.java)
 
 ## Exam tricks
 > **What is and is not guaranteed**
@@ -120,3 +133,7 @@ public final void notifyAll()
 > **One thread can be started only one time**
 >
 > The runtime IllegalThreadStateException will be thrown if you start a thread that was executed previously
+
+> **``Thread.sleep()``
+>
+> Don't rely on this method to give you a perfectly accurate timer!!!
