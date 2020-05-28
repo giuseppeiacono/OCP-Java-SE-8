@@ -11,6 +11,10 @@
 + [Multithreading problems](#multithreading-problems)
     - [Blocking on synchronized methods](#blocking-on-synchronized-methods)
     - [Thread-safe classes](#thread-safe-classes)
+    - [Deadlock](#deadlock)
+    - [Livelock](#livelock)
+    - [Starvation](#starvation)
+    - [Race condintion](#race-condintion)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -191,6 +195,21 @@ A class is not considered thread-safe only because its field is of thread-safe t
 
 Only if you synchronize all methods that access that field you will be sure that your class is thread-safe. 
 The [ThreadSafeClass](src/thread_safe_classes/ThreadSafeClass.java) is the thread-safe version of the previous example.
+
+### Deadlock
+![alt text](readme_resources/deadlock.png)
+
+An example of deadlock risk is on [Deadlock](src/Deadlock.java) and you can fix it swapping the order of locking for
+either the method ``read()`` or ``write()``. 
+
+### Livelock
+
+
+### Starvation
+
+
+### Race condintion
+
 
 ## Exam tricks
 > **What is and is not guaranteed**
