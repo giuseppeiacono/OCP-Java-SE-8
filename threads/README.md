@@ -4,7 +4,13 @@
 + [Instantiating threads](#instantiating-threads)
 + [Starting threads](#starting-threads)
 + [Thread states and transistions](#thread-states-and-transistions)
-+ [Sleep threads](#starting-threads)
++ [Preventing thread execution](#preventing-thread-execution)
+    - [Sleep threads](#starting-threads)
+    - [Yield threads](#yield-threads)
+    - [Join threads](#join-threads)
++ [Multithreading problems](#multithreading-problems)
+    - [Blocking on synchronized methods](#blocking-on-synchronized-methods)
+    - [Thread-safe classes](#thread-safe-classes)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -103,16 +109,88 @@ Some example of how to define, instantiate and start a thread is on [DefineInsta
 ## Thread states and transistions
 ![alt text](readme_resources/thread-states.png)
 
-## Sleep threads
+
+## Preventing thread execution
+Burn in your mind that in a multithreads environment you have no total control over the scheduler, but you could 
+influence its behaviour with the following methods:
+ * ``Thread.sleep()``
+ * ``Thread.yield()``
+ * ``join()``
+
+This section resume the most important aspects of these features and the important concept of thread priority.
+
+### Thread priority
+Each thread has a priority that is used in some way by scheduler policy to pick up threads from the pool of runnable ones. 
+You can set the priority with the instance method ``setPriority(int newPriority)``.
+
+Normally, thread priority is an integer between 1 and 10, while the default values is usually 5.
+```java
+// constants of the Thread class
+Thread.MIN_PRIORITY (1)
+Thread.NORM_PRIORITY (5)
+Thread.MAX_PRIORITY (10)
+```
+
+> **WARNING**
+>
+> Don't rely on thread priorities when designing your multithreaded application.
+> Because thread-scheduling priority behavior is not guaranteed, it’s better to
+> avoid modifying thread priorities. Usually, default priority will be fine.
+
+### Sleep threads
 The static method ``Thread.sleep()`` could be invoked in the thread code to sleep it at least for the period of time
 specified as parameter (milliseconds). We said AT LEAST because when the thread wake up its state is changed to RUNNABLE.
 We don't know how much time it need to be run by scheduler!
 
 > **WARNING**
 >
-> One thread could not send another thread to sleep 
+> One thread could not send another thread to sleep!!! 
 
 Look at the sample on [SleepThread](src/SleepThread.java)
+
+### Yield threads
+The static method ``Thread.yield()`` suggests to the scheduler to move back to the RUNNABLE state the current thread 
+in order to allow the execution of another thread from the pool. The scheduler could ignore this suggestion.
+
+### Join threads
+The non-static method ``join()`` allows to execute one thread when another is moved to DEAD state.
+It's the case where the thread A need that the thread B finished to be executed.  
+
+## Multithreading problems
+In this section we will talk about several issues of multithreading applications.
+
+First of all you should know how multithreading application should work:
+![alt text](readme_resources/how-mutlithreading-works.png)
+
+### Blocking on synchronized methods
+For the exam and the real life we must be able to recognize the scenarios where threads could be blocked getting lock of an instance
+
+| Scenario | Threads blocked |
+| :------: | :-------------: |
+| Thread A get lock on the instance I | Each thread that try to invoke **non-static synchronized** methods of the same instance I |
+| Thread A get lock on the class C | Each thread that try to invoke **static synchronized** methods of the same class C |
+| synchronized block | Each thread that try to synchronize on the same object between parentheses after the **synchronize** keyword |
+
+The scenarios below block threads:
+ * Non-static methods access STATIC fields
+ * STATIC methods access non-static fields
+
+You can fix it avoiding this mix, as follow:
+ * STATIC fields accessed by STATIC synchronized methods
+ * Non-static fields accessed by non-static synchronized methods
+ 
+Access both STATIC and non-static fields in a method is possible, but it's not on the scope of the exam.
+ 
+> **WARNING**
+>
+> Access a "thread-safe" variable (e.g. synchronized collection) with a non-synchronized method DOES NOT MAKE your code "thread-safe"!!!
+
+### Thread-safe classes
+A class is not considered thread-safe only because its field is of thread-safe type, as you can see in the example 
+[NonThreadSafeClass](src/thread_safe_classes/NonThreadSafeClass.java).
+
+Only if you synchronize all methods that access that field you will be sure that your class is thread-safe. 
+The [ThreadSafeClass](src/thread_safe_classes/ThreadSafeClass.java) is the thread-safe version of the previous example.
 
 ## Exam tricks
 > **What is and is not guaranteed**
