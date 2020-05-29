@@ -15,6 +15,7 @@
     - [Livelock](#livelock)
     - [Starvation](#starvation)
     - [Race condintion](#race-condintion)
++ [Thread interaction](#thread-interaction)
 + [Exam tricks](#exam-tricks)
 
 ## Overview
@@ -224,6 +225,18 @@ The class [RaceCondition](src/RaceCondition.java) include an example of race con
 It can be fixed with a couple of changes:
  * make ``volatile`` the shared resource  (INSTANCE variable)
  * synchronize all methods that access the shared resource (in this example just the method ``getInstance()``) 
+
+## Thread interaction
+The most complex aspect of the thread is their interaction, there is no doubt. 
+
+It consists of two things:
+ 1. Object lock: we said that each instance has its own lock that could be acquired by one thread at a time
+ 2. ``wait()``, ``notify()``, and ``notifyAll()`` allows threllllllllllllads to communicate the status of an event
+
+> IMPORTANT
+>
+> The methods ``wait()``, ``notify()``, and ``notifyAll()`` must be called from within a synchronized context
+> and the thread MUST own that object's lock.
 
 ## Exam tricks
 > **What is and is not guaranteed**
