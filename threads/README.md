@@ -203,13 +203,27 @@ An example of deadlock risk is on [Deadlock](src/Deadlock.java) and you can fix 
 either the method ``read()`` or ``write()``. 
 
 ### Livelock
+![alt text](readme_resources/livelock.png)
 
+Java reduced a lot the probability of livelock with ``ReentrantLock`` that is treated in depth in the concurrency module.
 
 ### Starvation
+Starvation is like the consequence of livelock: a thread that could not make progress because it cannot get access 
+to a shared resource that other threads are hogging.
 
+A couple of examples:
+ 1. another thread gets access to a synchronized resource and then goes into an infinite loop or takes a really long time to use the resource
+ 2. some threads are waiting for a resource, but one of them always gets it because it has the higher priority
+ 
+A good solution could be a scheduler that allocate time fairly between threads.
 
 ### Race condintion
+![alt text](readme_resources/race-condition.png)
 
+The class [RaceCondition](src/RaceCondition.java) include an example of race condition based on the singleton pattern. 
+It can be fixed with a couple of changes:
+ * make ``volatile`` the shared resource  (INSTANCE variable)
+ * synchronize all methods that access the shared resource (in this example just the method ``getInstance()``) 
 
 ## Exam tricks
 > **What is and is not guaranteed**
