@@ -231,7 +231,7 @@ The most complex aspect of the thread is their interaction, there is no doubt.
 
 It consists of two things:
  1. Object lock: we said that each instance has its own lock that could be acquired by one thread at a time
- 2. ``wait()``, ``notify()``, and ``notifyAll()`` allows threllllllllllllads to communicate the status of an event
+ 2. ``wait()``, ``notify()``, and ``notifyAll()`` allows threads to communicate the status of an event
 
 > IMPORTANT
 >
