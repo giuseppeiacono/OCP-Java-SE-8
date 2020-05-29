@@ -243,8 +243,8 @@ It can be fixed with a couple of changes:
 
 > **One thread can be started only one time**
 >
-> The runtime IllegalThreadStateException will be thrown if you start a thread that was executed previously
+> The runtime ``IllegalThreadStateException`` will be thrown if you start a thread that was executed previously
 
-> **``Thread.sleep()``
+> **``Thread.sleep()``**
 >
 > Don't rely on this method to give you a perfectly accurate timer!!!
