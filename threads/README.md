@@ -235,8 +235,16 @@ It consists of two things:
 
 > IMPORTANT
 >
-> The methods ``wait()``, ``notify()``, and ``notifyAll()`` must be called from within a synchronized context
-> and the thread MUST own that object's lock.
+> The methods ``wait()``, ``notify()``, and ``notifyAll()`` can be called if and only if:
+>  1. we are in a synchronized context (synchronized method or block)
+>  2. the thread own the LOCK on the object, else the unchecked exception ``IllegalMonitorStateException`` will be thrown!!!
+
+![alt text](readme_resources/synchronize-on-shared-resource.png)
+
+The example [WaitingNotification](src/thread_interaction/WaitNotify.java) highlight the most important details
+of how two threads could share a resource. By the way, it could be improved:
+ * put a queue between the writer THREAD and the resource
+ * replace ``wait()`` with ``wait(long millis)`` to be sure that thread will no wait indefinitely 
 
 ## Exam tricks
 > **What is and is not guaranteed**
@@ -261,3 +269,8 @@ It consists of two things:
 > **``Thread.sleep()``**
 >
 > Don't rely on this method to give you a perfectly accurate timer!!!
+
+> **LOCK release**
+>
+> It's very important to understand that when the thread invoke ``wait()`` on the instance, immediately release the lock.  
+> It's NOT TRUE for the method ``notifyy()``
