@@ -273,4 +273,4 @@ of how two threads could share a resource. By the way, it could be improved:
 > **LOCK release**
 >
 > It's very important to understand that when the thread invoke ``wait()`` on the instance, immediately release the lock.  
-> It's NOT TRUE for the method ``notifyy()``
+> It's NOT TRUE for the method ``notify()``
