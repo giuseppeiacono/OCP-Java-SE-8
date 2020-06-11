@@ -35,7 +35,7 @@ public class ReentrantLockSamples {
     private static void tryLockWithinTime() {
         Lock lock = new ReentrantLock();
         try {
-            boolean locked = lock.tryLock(3, TimeUnit.SECONDS);
+            boolean locked = lock.tryLock(3, TimeUnit.SECONDS); // wait until 3 seconds to acquire the lock
             if (locked) {
                 try {
                     // do stuff
@@ -44,7 +44,7 @@ public class ReentrantLockSamples {
                 }
             }
         } catch (InterruptedException ex) {
-            // handle
+            // it could be interrupted during the waiting time
         }
     }
 }
