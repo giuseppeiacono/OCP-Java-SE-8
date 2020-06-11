@@ -16,7 +16,7 @@ public class ReentrantLockSamples {
         try {
             // do stuff
         } finally {
-            lock.unlock();  // must manually release
+            lock.unlock();  // must manually released
         }
     }
 
@@ -27,7 +27,7 @@ public class ReentrantLockSamples {
             try {
                 // do stuff
             } finally {
-                lock.unlock();  // must manually release
+                lock.unlock();  // must manually released
             }
         }
     }
@@ -40,7 +40,7 @@ public class ReentrantLockSamples {
                 try {
                     // do stuff
                 } finally {
-                    lock.unlock();  // must manually release
+                    lock.unlock();  // must manually released
                 }
             }
         } catch (InterruptedException ex) {

@@ -3,8 +3,9 @@
 + [``java.util.concurrent``](#javautilconcurrent)
     - [Atomic package](#atomic-package)
     - [Locks package](#locks-package)
-    - [ReentrantLock](#reentrantlock)
-    - [Condition](#condition)
+    - [``ReentrantLock``](#reentrantlock)
+    - [``Condition``](#condition)
+    - [``ReentrantReadWriteLock``](#reentrantreadwritelock)
 
 
 ## Overview
@@ -33,7 +34,7 @@ Some reasons why use the ``java.util.concurrent.locks`` package:
  * The ability to attempt to acquire a lock and take an alternative action if locking fails
  * An implementation of a multiple-reader, single-writer lock
 
-### ReentrantLock
+### ``ReentrantLock``
 We know that the first step to access shared resources in a multithreading application is always get the lock on the object.
 We can get it with synchronized methods/blocks, but ``ReentrantLock`` gives us alternatives with some benefits.
 
@@ -59,5 +60,16 @@ The sample [LiveLockSample](src/LiveLockSample.java) use the method ``tryLock()`
 a little possibility to lead to livelock. It can be fixed introducing a short random delay with ``Thread.sleep(int)`` 
 any time it fails to acquire both locks.
 
-### Condition 
-The class ``Condition`` could replace wait-notify and wait-notifyAll. It works as 
+### ``Condition``
+The class ``Condition`` could replace wait-notify and wait-notifyAll. It works as below:
+
+![alt text](readme_resources/condition.png)
+
+It has the advantage that you could define multiple conditions on the same lock and you can use it in case you can't use
+the ``BlockingQueue``.
+
+### ``ReentrantReadWriteLock``
+This class allows multiple threads to read concurrently a non-thread-safe collection and to modify it by one thread at a time.
+It produces a couple of locks, one to read and the other to write.
+
+The example [ReadAndWriteNonThreadSafeCollection](src/ReadAndWriteNonThreadSafeCollection.java) shows the implementation details.
