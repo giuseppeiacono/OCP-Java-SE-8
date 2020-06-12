@@ -8,6 +8,8 @@
     - [``ReentrantReadWriteLock``](#reentrantreadwritelock)
 + [Concurrent collections](#concurrent-collections)
     - [Copy-on-Write Collections](#copy-on-write-collections)
+    - [Concurrent collections](#concurrent-collections)
+    - [Blocking Queues](#blocking-queues)
 + [Exam tricks](#exam-tricks)
 
 
@@ -98,6 +100,18 @@ for a small amount of data.
 
 Threads can loop on this collection only with the enhanced for-loop and the ``forEach()`` method because they both
 use the ``Iterator`` that maintains the reference to the unchanging elements during the loop. 
+
+### Concurrent collections
+![alt text](readme_resources/concurrent-map.png)
+
+These implementations allow threads to read and write concurrently without create internal copies of the shared collection.
+It means that the method ``size()``, for example, would be a bit inconsistent because while it is counting the elements some threads
+were read and write data.
+
+![alt text](readme_resources/concurrent-set.png)
+
+### Blocking Queues
+
 
 ## Exam tricks
 > **"probable" or "most likely"**
