@@ -6,6 +6,9 @@
     - [``ReentrantLock``](#reentrantlock)
     - [``Condition``](#condition)
     - [``ReentrantReadWriteLock``](#reentrantreadwritelock)
++ [Concurrent collections](#concurrent-collections)
+    - [Copy-on-Write Collections](#copy-on-write-collections)
++ [Exam tricks](#exam-tricks)
 
 
 ## Overview
@@ -73,3 +76,41 @@ This class allows multiple threads to read concurrently a non-thread-safe collec
 It produces a couple of locks, one to read and the other to write.
 
 The example [ReadAndWriteNonThreadSafeCollection](src/ReadAndWriteNonThreadSafeCollection.java) shows the implementation details.
+
+## Concurrent collections
+We know that we can make a collection thread-safe synchronizing code that access the collection or generating a 
+thread-safe collection with ``Collections.synchronizedList( new ArrayList() )``, but they have a low performance.
+
+Better solutions are:
+ * Copy-on-Write collections
+ * Concurrent collections
+ * Blocking Queues
+
+### Copy-on-Write Collections
+![alt text](readme_resources/copy-on-write-collections.png)
+
+These implementations of ``List`` make the collection thread-safe in such a way that we don't need any synchronization 
+or locking mechanism to allow concurrent access.
+
+Basically, it uses a read-only collection because immutable objects are always thread-safe! 
+Mutating operations generate a copy of the collection modified properly. That's why is recommended to use this collection
+for a small amount of data.
+
+Threads can loop on this collection only with the enhanced for-loop and the ``forEach()`` method because they both
+use the ``Iterator`` that maintains the reference to the unchanging elements during the loop. 
+
+## Exam tricks
+> **"probable" or "most likely"**
+>
+> On the exam, you might be asked about the "probable" or "most likely" outcome.  
+> Unless you are asked to identify every possible outcome of a code sample, don't worry about unlikely results. 
+> 
+> For example, if the exam question uses ``Thread.sleep(1000)`` and nothing indicates that the thread would be interrupted while it was
+> sleeping, it would be safe to assume that the thread would resume execution around one second after the call to sleep
+
+> **thread-safe collection**
+>
+> Thread-safe collection DOES NOT MEAN the elements stored within the collection are thread-safe!!!
+>
+> You might have to use atomic variables, locks, synchronized code blocks or immutable (read-only) objects to make
+> the objects referenced by a collection thread-safe
