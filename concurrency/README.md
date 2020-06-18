@@ -111,7 +111,13 @@ were read and write data.
 ![alt text](readme_resources/concurrent-set.png)
 
 ### Blocking Queues
+They are used to exchange data between two or more threads. One use case is the producer-consumer problem.
 
+The bounded queues has a bounded capacity (``ArrayBlockingQueue``, ``LinkedBlockingDeque``, ``LinkedBlockingQueue``) while
+the special-purpose queue has zero capacity (``SyncrhonousQueue``) because they are used to exchange an object.
+
+``DelayQueue`` allows to consume an object at a specific time. 
+``LinkedTransferQueue`` can do almost everything you need from a queue. 
 
 ## Exam tricks
 > **"probable" or "most likely"**
