@@ -10,7 +10,7 @@
     - [Copy-on-Write Collections](#copy-on-write-collections)
     - [Concurrent collections](#concurrent-collections)
     - [Blocking Queues](#blocking-queues)
-    - [``CyclicBarrier``]
+    - [``CyclicBarrier``](#cyclicbarrier)
 + [Exam tricks](#exam-tricks)
 
 
@@ -135,7 +135,7 @@ boolean offer(E e, long timeout, TimeUnit unit);
 void put(E e);
 ```
 
-The most common methods to remove an object from the queue
+The most common methods to remove an object from the queue:
 ```java
 // returns true if an equal object was found in the queue and removed, else returns false
 boolean remove(Object o);
@@ -151,6 +151,7 @@ E poll();
 E take();
 ```
 
+The most common methods to retrieve an object from the queue:
 ```java
 // gets the head of the queue without removing it 
 // throws a NoSuchElementException if the queue is empty
@@ -165,6 +166,25 @@ In a multithreading application we usually need to control that two or more thre
 We can do it with ``CyclicBarrier``.
 
 ![alt text](readme_resources/CyclicBarrier.png)
+
+## Executors and ThreadPools
+The architecture of our machine define a great limit for the number of threads that we can run concurrently, so it's a 
+good practice to assign each need to a different class in order to make our application more modular and flexible. 
+It is the programming principle called "separation of concerns".
+
+The ``Executors`` class is an high level management of threads, instead of create and start them manually. Can you imagine 
+to manage manually thousands of threads?
+
+At this point we understand perfectly that the number of threads you can run on your machine/servers depends on several aspects and 
+there is no the perfect recipe:
+ 1. Number of cores of your CPU
+ 2. Scheduler policy
+ 3. CPU intensive and I/O intensive (e.g. we can improve the performance of our application putting to sleep a thread that
+    made an I/O request when the data is not available in the memory)
+ 4. Management of I/O operations
+ 5. and so on...
+ 
+
 
 ## Exam tricks
 > **"probable" or "most likely"**
