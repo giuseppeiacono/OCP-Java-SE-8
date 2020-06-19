@@ -10,6 +10,7 @@
     - [Copy-on-Write Collections](#copy-on-write-collections)
     - [Concurrent collections](#concurrent-collections)
     - [Blocking Queues](#blocking-queues)
+    - [``CyclicBarrier``]
 + [Exam tricks](#exam-tricks)
 
 
@@ -113,11 +114,57 @@ were read and write data.
 ### Blocking Queues
 They are used to exchange data between two or more threads. One use case is the producer-consumer problem.
 
-The bounded queues has a bounded capacity (``ArrayBlockingQueue``, ``LinkedBlockingDeque``, ``LinkedBlockingQueue``) while
-the special-purpose queue has zero capacity (``SyncrhonousQueue``) because they are used to exchange an object.
+ * ``ArrayBlockingQueue``, ``LinkedBlockingDeque``, ``LinkedBlockingQueue`` are bounded queues with bounded capacity. [Here](src/BoundedQueue.java) an example 
+ * ``SyncrhonousQueue`` is a special-purpose queue with zero capacity because they are used to exchange just one object
+ * ``DelayQueue`` allows to consume an object at a specific time  
+ * ``LinkedTransferQueue`` can do almost everything you need from a queue. Oracle recommend to use it due to its high efficiency. [Here](src/LinkedTransferQueueSample.java) an example
+ 
+The most common methods to insert an object in the queue:
+```java
+// returns true if object added, false if duplicate objects are not allowed
+// throws an IllegalStateException if the queue is bounded and full
+boolean add(E e);
 
-``DelayQueue`` allows to consume an object at a specific time. 
-``LinkedTransferQueue`` can do almost everything you need from a queue. 
+// returns true if object added, false if the queue is bounded and full
+boolean offer(E e);
+
+// Returns false if the object was not able to be inserted before the time indicated by the second and third parameters
+boolean offer(E e, long timeout, TimeUnit unit);
+
+// If needed, will block until space in the queue becomes available
+void put(E e);
+```
+
+The most common methods to remove an object from the queue
+```java
+// returns true if an equal object was found in the queue and removed, else returns false
+boolean remove(Object o);
+
+// removes the first object in the queue (the head) and returns it. 
+// If the timeout expires before an object can be removed because the queue is empty, a null will be returned
+E poll(long timeout, TimeUnit unit);
+
+// removes the first object in the queue (the head) and returns it or returns null if the queue is empty
+E poll();
+
+// removes the first object in the queue (the head) and returns it, blocking if needed until an object becomes available
+E take();
+```
+
+```java
+// gets the head of the queue without removing it 
+// throws a NoSuchElementException if the queue is empty
+E element();
+
+// gets the head of the queue without removing it. Returns a null if the queue is empty
+E peek();
+```
+
+### ``CyclicBarrier``
+In a multithreading application we usually need to control that two or more threads have done their work before to continue.
+We can do it with ``CyclicBarrier``.
+
+![alt text](readme_resources/CyclicBarrier.png)
 
 ## Exam tricks
 > **"probable" or "most likely"**
@@ -134,3 +181,7 @@ the special-purpose queue has zero capacity (``SyncrhonousQueue``) because they 
 >
 > You might have to use atomic variables, locks, synchronized code blocks or immutable (read-only) objects to make
 > the objects referenced by a collection thread-safe
+
+> **When ``InterruptedException`` is thrown?**
+>
+> Any method that blocks or waits for any period may throw an ``InterruptedException``
