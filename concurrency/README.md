@@ -184,7 +184,31 @@ there is no the perfect recipe:
  4. Management of I/O operations
  5. and so on...
  
-
+An ``Executor`` can be designed to use any number of threading approaches:
+ * run task in the current thread
+   ```java
+   import java.util.concurrent.Executor;
+   public class CurrentThreadExecutor implements Executor {
+       @Override
+       public void execute(Runnable task) {
+           task.run();  // caller waits
+       }
+   }
+   ```
+ * start one thread per task
+   ```java
+   import java.util.concurrent.Executor;
+       public class OneThreadPerTaskExecutor implements Executor {
+       @Override
+       public void execute(Runnable task) {
+           Thread t = new Thread(task);
+           t.start();
+       }
+   }
+   ```
+ * queuing tasks that will be executed by the maximum number of threads that can be managed by CPU
+ 
+![alt text](readme_resources/executors.png)
 
 ## Exam tricks
 > **"probable" or "most likely"**
